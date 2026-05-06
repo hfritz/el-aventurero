@@ -187,11 +187,11 @@ function GameInstance({ level, router }: { level: number; router: ReturnType<typ
         g.strokeCircle(30, 40, 22);
         // Star above (manual 5-point star)
         g.fillStyle(0xffd700, 1);
-        const starPts: Phaser.Types.Math.Vector2Like[] = [];
+        const starPts: Phaser.Math.Vector2[] = [];
         for (let i = 0; i < 10; i++) {
           const angle = (i * Math.PI) / 5 - Math.PI / 2;
           const r = i % 2 === 0 ? 10 : 4;
-          starPts.push({ x: 30 + Math.cos(angle) * r, y: 12 + Math.sin(angle) * r });
+          starPts.push(new Phaser.Math.Vector2(30 + Math.cos(angle) * r, 12 + Math.sin(angle) * r));
         }
         g.fillPoints(starPts, true);
         g.lineStyle(2, 0xffd700, 1);
