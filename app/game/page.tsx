@@ -139,6 +139,37 @@ function GameInstance({ level, router }: { level: number; router: ReturnType<typ
           g.fillStyle(0xec4899); g.fillRect(25, 22, 3, 10);
           g.fillStyle(0xfde68a); g.fillRect(29, 22, 3, 13);
           g.generateTexture(key, 40, 46);
+        } else if (key === 'harpy_eagle') {
+          // Harpy Eagle — Venezuela's national bird; dark wings, white chest, grey crested head
+          g.fillStyle(color);                                            // dark body/wings
+          g.fillRect(0, 14, 10, 4); g.fillRect(22, 14, 10, 4);         // wings
+          g.fillEllipse(16, 20, 16, 12);                                 // upper body
+          g.fillStyle(0xffffff); g.fillEllipse(16, 25, 10, 7);          // white belly
+          g.fillStyle(0x111111); g.fillRect(10, 18, 12, 3);             // black chest band
+          g.fillStyle(0xd0d0d0); g.fillCircle(16, 9, 6);               // grey head
+          g.fillStyle(0x444444);                                          // dark crest
+          g.fillRect(12, 2, 2, 6); g.fillRect(15, 1, 2, 7); g.fillRect(18, 2, 2, 6);
+          g.fillStyle(0xffd700); g.fillCircle(13, 8, 2); g.fillCircle(19, 8, 2); // eyes
+          g.fillStyle(0x111111); g.fillCircle(13, 8, 1); g.fillCircle(19, 8, 1);
+          g.fillStyle(0xd4a853); g.fillRect(14, 11, 4, 2);              // hooked beak
+          g.fillTriangle(14, 13, 18, 13, 16, 16);
+          g.generateTexture(key, 32, 32);
+        } else if (key === 'caiman') {
+          // Orinoco Caiman — flat, armored, long snout
+          g.fillStyle(color);                                            // olive green body
+          g.fillEllipse(22, 10, 38, 14);
+          g.fillStyle(0x1a4810, 0.6);                                    // armor scutes
+          for (let i = 0; i < 4; i++) g.fillRect(8 + i * 7, 4, 5, 10);
+          g.fillStyle(0x3a8020); g.fillRect(34, 3, 12, 11);            // head block
+          g.fillRect(44, 5, 6, 6);                                       // snout
+          g.fillStyle(0xffffff);                                          // teeth
+          g.fillRect(44, 10, 2, 3); g.fillRect(47, 10, 2, 3);
+          g.fillStyle(0xd4a853); g.fillCircle(37, 2, 2.5); g.fillCircle(43, 2, 2.5); // eyes
+          g.fillStyle(0x111111); g.fillCircle(37, 2, 1); g.fillCircle(43, 2, 1);
+          g.fillStyle(color); g.fillTriangle(6, 5, 6, 15, 0, 10);      // tail
+          g.fillRect(11, 15, 4, 5); g.fillRect(18, 15, 4, 5);          // front legs
+          g.fillRect(26, 15, 4, 5); g.fillRect(33, 15, 4, 5);          // rear legs
+          g.generateTexture(key, 50, 20);
         }
         g.destroy();
       };
@@ -185,14 +216,14 @@ function GameInstance({ level, router }: { level: number; router: ReturnType<typ
         musicNotes: number[];
         musicTempo: number;
         musicMelody?: number[];
-        rhythmStyle?: 'default' | 'cumbia';
+        rhythmStyle?: 'default' | 'cumbia' | 'joropo';
         mountainProfile: number[];
         portalX: number;
         portalY: number;
         nextLevel: number | null;
-        hazardBehavior: 'dive' | 'charge' | 'carnival';
+        hazardBehavior: 'dive' | 'charge' | 'carnival' | 'tepui';
         flag: string;
-        backgroundStyle: 'andes' | 'pyramids' | 'carnival';
+        backgroundStyle: 'andes' | 'pyramids' | 'carnival' | 'tepui';
         enemy2Key?: string;
         enemy2Color?: number;
       }
@@ -275,7 +306,7 @@ function GameInstance({ level, router }: { level: number; router: ReturnType<typ
           mountainProfile: [370,320,290,350,310,270,340,300,360,290,350,310,280,330,370],
           portalX:         4700,
           portalY:         260,
-          nextLevel:       null,
+          nextLevel:       4,
           hazardBehavior:  'carnival',
           flag:            '🇨🇴',
           backgroundStyle: 'carnival',
@@ -295,6 +326,48 @@ function GameInstance({ level, router }: { level: number; router: ReturnType<typ
             {x:3870, y:358, w:110},
             {x:4180, y:310, w:100},
             {x:4460, y:292, w:240},  // final approach
+          ],
+        },
+        4: {
+          bgColors:        [0x0e2a40, 0x04101a],
+          mountainColor:   0x7a3418,
+          platformColor:   0x6b2e12,
+          platformAccent:  0x8a4228,
+          enemyColor:      0x1a1210,
+          enemyKey:        'harpy_eagle',
+          enemy2Key:       'caiman',
+          enemy2Color:     0x2d6b1a,
+          coinColor:       0x40e0ff,
+          title:           'Gran Sabana — Salto Ángel',
+          worldWidth:      4800,
+          musicNotes:      [329, 370, 415, 440, 493, 554, 622, 659],
+          musicTempo:      280,
+          musicMelody:     [0, 2, 4, 5, 7, 5, 4, 2],
+          rhythmStyle:     'joropo' as const,
+          mountainProfile: [280, 240, 310, 260, 290, 240, 270, 300, 250, 280, 310, 260, 290, 270, 290],
+          portalX:         4700,
+          portalY:         255,
+          nextLevel:       null,
+          hazardBehavior:  'tepui',
+          flag:            '🇻🇪',
+          backgroundStyle: 'tepui',
+          platforms: [
+            {x:100,  y:460, w:160},
+            {x:420,  y:390, w:110},
+            {x:680,  y:320, w:100},
+            {x:940,  y:255, w:110},
+            {x:1220, y:360, w:100},
+            {x:1500, y:290, w:100},
+            {x:1790, y:235, w:100},
+            {x:2090, y:375, w:100},
+            {x:2380, y:305, w:100},
+            {x:2680, y:245, w:100},
+            {x:2980, y:385, w:100},
+            {x:3280, y:310, w:110},
+            {x:3580, y:250, w:100},
+            {x:3870, y:375, w:100},
+            {x:4150, y:300, w:100},
+            {x:4430, y:255, w:240},
           ],
         },
       };
@@ -388,6 +461,22 @@ function GameInstance({ level, router }: { level: number; router: ReturnType<typ
               // Llamador (small drum) anticipation on 3 and 7
               if (s === 3 || s === 7)
                 this.tone(110, now, 0.1, 0.05, "sine");
+            } else if (this.rhythmStyle === 'joropo') {
+              // Venezuelan joropo — fast 6/8 feel: arpa llanera melody + cuatro chords + maracas
+              const s = this.step % 6;
+              // Arpa llanera melody on the three triplet subdivisions
+              if (s === 0 || s === 2 || s === 4)
+                this.tone(this.notes[this.melody[Math.floor(this.step / 3) % this.melody.length]], now, interval * 0.5, 0.1, 'triangle');
+              // Cuatro chord stabs on beats 0 and 3 (two voices for chord feel)
+              if (s === 0 || s === 3) {
+                this.tone(this.notes[0], now, interval * 0.8, 0.07, 'square');
+                this.tone(this.notes[4], now, interval * 0.8, 0.04, 'square');
+              }
+              // Maracas — constant light noise on every tick
+              this.noise(now, 0.09, 0.03);
+              // Bandola syncopation on upbeats 1 and 4
+              if (s === 1 || s === 4)
+                this.tone(this.notes[this.melody[(Math.floor(this.step / 3) + 3) % this.melody.length]], now, interval * 0.4, 0.06, 'sine');
             } else {
               this.tone(this.notes[this.melody[this.step % this.melody.length]], now, interval * 0.8);
               if (this.step % 4 === 0 || this.step % 4 === 2)
@@ -639,6 +728,53 @@ function GameInstance({ level, router }: { level: number; router: ReturnType<typ
               if (i % 3 === 0) conf.fillRect(cx, cy, 5, 8);
               else conf.fillCircle(cx, cy, 3);
             }
+          } else if (cfg.backgroundStyle === 'tepui') {
+            // Gran Sabana — Angel Falls, tepui mesas, jungle canopy
+
+            // Angel Falls — distant thin waterfall streaks
+            const falls = this.add.graphics().setScrollFactor(0.07);
+            for (let i = 0; i < Math.ceil(worldW / 370); i++) {
+              const fx = 140 + i * 370;
+              falls.fillStyle(0xaaddff, 0.2); falls.fillRect(fx, 50, 5, 340);
+              falls.fillStyle(0xffffff, 0.1); falls.fillRect(fx + 1, 50, 2, 340);
+            }
+
+            // Tepui mesa formations (flat-topped, vertical red cliffs)
+            const mesas = this.add.graphics().setScrollFactor(0.2);
+            const drawMesa = (ox: number, bw: number, mh: number) => {
+              const baseY = Math.round(H * 0.74);
+              mesas.fillStyle(0x7a3418, 0.9);  mesas.fillRect(ox, baseY - mh, bw, mh);   // cliff face
+              mesas.fillStyle(0xa04822, 0.4);  mesas.fillRect(ox, baseY - mh, 15, mh);   // lit left edge
+              mesas.fillStyle(0x3a150a, 0.4);  mesas.fillRect(ox + bw - 15, baseY - mh, 15, mh); // shadow
+              mesas.fillStyle(0x1a6a1a, 0.75); mesas.fillRect(ox, baseY - mh, bw, 20);   // jungle top
+              mesas.fillStyle(0x0d3d0d, 0.35); mesas.fillRect(ox, baseY - mh, bw, 5);    // top edge
+              mesas.fillStyle(0x5a2010, 0.25);
+              for (let s = 1; s <= 3; s++)
+                mesas.fillRect(ox + 13, baseY - mh + s * Math.round(mh / 4), bw - 26, 2); // strata
+            };
+            for (let i = 0; i * 550 < worldW + 550; i++) {
+              drawMesa(i * 550,       270, 190);
+              drawMesa(i * 550 + 310, 175, 130);
+            }
+
+            // Mist bands at tepui mid-height
+            const mist = this.add.graphics().setScrollFactor(0.28);
+            mist.fillStyle(0xffffff, 0.06);
+            for (let i = 0; i < 28; i++)
+              mist.fillEllipse(i * (worldW / 26), 255 + Math.sin(i * 1.6) * 18, 520, 48);
+
+            // Jungle canopy at ground level
+            const jungle = this.add.graphics().setScrollFactor(0.65);
+            jungle.fillStyle(0x0d4a12, 0.85);
+            for (let i = 0; i < Math.ceil(worldW / 50); i++) {
+              const jx = i * 50; const jh = 36 + (i * 23 % 26);
+              jungle.fillEllipse(jx + 25, this.groundY - jh / 2, 60, jh);
+            }
+            jungle.fillStyle(0x1a7020, 0.5);
+            for (let i = 0; i < Math.ceil(worldW / 36); i++) {
+              const jx = i * 36 + (i % 3) * 12; const jh = 22 + (i * 13 % 18);
+              jungle.fillEllipse(jx, this.groundY - jh / 2, 42, jh);
+            }
           }
 
           // Ground
@@ -708,6 +844,32 @@ function GameInstance({ level, router }: { level: number; router: ReturnType<typ
               e.setData('state', 'patrol');
               e.setData('enemyType', 'torito');
             }
+          } else if (cfg.hazardBehavior === 'tepui') {
+            // Harpy Eagles — aggressive aerial divers
+            const numEagles = 7;
+            for (let i = 0; i < numEagles; i++) {
+              const x = 600 + i * (cfg.worldWidth / numEagles);
+              const e = this.enemies.create(x, 125, cfg.enemyKey) as Phaser.Physics.Arcade.Sprite;
+              const body = e.body as Phaser.Physics.Arcade.Body;
+              body.setAllowGravity(false);
+              body.setCollideWorldBounds(true);
+              e.setVelocityX(i % 2 === 0 ? -95 : 95);
+              e.setData('state', 'patrol');
+              e.setData('enemyType', 'harpy_eagle');
+              e.setData('diveTimer', Phaser.Math.Between(70, 220));
+              e.setData('homeY', 125);
+            }
+            // Orinoco Caimans — slow ground patrol, sudden lunge
+            const numCaimans = 8;
+            for (let i = 0; i < numCaimans; i++) {
+              const x = 500 + i * (cfg.worldWidth / numCaimans);
+              const e = this.enemies.create(x, this.groundY - 10, cfg.enemy2Key!) as Phaser.Physics.Arcade.Sprite;
+              (e.body as Phaser.Physics.Arcade.Body).setCollideWorldBounds(true);
+              e.setVelocityX(i % 2 === 0 ? 40 : -40);
+              e.setBounceX(0);
+              e.setData('state', 'patrol');
+              e.setData('enemyType', 'caiman');
+            }
           }
 
           // Portal at end
@@ -775,21 +937,6 @@ function GameInstance({ level, router }: { level: number; router: ReturnType<typ
             stroke: "#000", strokeThickness: 3,
           }).setScrollFactor(0).setDepth(5);
 
-          // Footer bar — dark backing so controls/menu are readable on any background
-          this.add.rectangle(W / 2, H - 18, W, 36, 0x000000, 0.52).setScrollFactor(0).setDepth(4);
-
-          // Controls hint
-          this.add.text(W / 2, H - 18, "← → move  ·  ↑ / Space jump", {
-            fontSize: "11px", color: "#94a3b8",
-          }).setOrigin(0.5).setScrollFactor(0).setDepth(5);
-
-          // Menu button
-          const back = this.add.text(W - 16, H - 18, "MENU →", {
-            fontSize: "12px", color: "#cbd5e1", fontStyle: "bold",
-          }).setOrigin(1, 0.5).setScrollFactor(0).setDepth(5).setInteractive({ useHandCursor: true });
-          back.on("pointerover", () => back.setColor("#D4A853"));
-          back.on("pointerout",  () => back.setColor("#cbd5e1"));
-          back.on("pointerdown", () => { this.audio?.stop(); router.push("/"); });
 
           // Music + intro card
           this.audio = new AudioEngine(cfg.musicNotes, cfg.musicTempo, cfg.musicMelody, cfg.rhythmStyle);
@@ -823,7 +970,7 @@ function GameInstance({ level, router }: { level: number; router: ReturnType<typ
             stroke: '#000000', strokeThickness: 3,
           }).setOrigin(0.5).setScrollFactor(0).setDepth(21).setAlpha(0);
 
-          const hintObj = this.add.text(W/2, H/2 + 96, 'pulsa cualquier tecla para empezar', {
+          const hintObj = this.add.text(W/2, H/2 + 96, 'press any key to start', {
             fontSize: '12px', color: '#888888',
           }).setOrigin(0.5).setScrollFactor(0).setDepth(21).setAlpha(0);
 
@@ -915,6 +1062,11 @@ function GameInstance({ level, router }: { level: number; router: ReturnType<typ
 
         showLevelComplete() {
           this.ended = true;
+          try {
+            const key = 'el-aventurero-completed';
+            const saved: number[] = JSON.parse(localStorage.getItem(key) || '[]');
+            if (!saved.includes(level)) localStorage.setItem(key, JSON.stringify([...saved, level]));
+          } catch {}
           this.audio?.stopMusic();          // stop the loop immediately
           this.audio?.sfx("complete");      // play jingle (SFX uses already-open ctx)
           setTimeout(() => this.audio?.stop(), 900); // close ctx after jingle finishes
@@ -1099,6 +1251,57 @@ function GameInstance({ level, router }: { level: number; router: ReturnType<typ
                   }
                 }
               }
+            } else if (this.cfg.hazardBehavior === 'tepui') {
+              const type = e.getData('enemyType') as string;
+              if (type === 'harpy_eagle') {
+                // ── Harpy Eagle: fast patrol → aggressive dive ──
+                if (state === 'patrol') {
+                  if (eb.blocked.left || e.x < 60) e.setVelocityX(95);
+                  else if (eb.blocked.right || e.x > this.cfg.worldWidth - 60) e.setVelocityX(-95);
+                  if (Math.abs(eb.velocity.x) < 10) e.setVelocityX(95);
+                  e.setFlipX(eb.velocity.x < 0);
+                  const t = (e.getData('diveTimer') as number) - 1;
+                  e.setData('diveTimer', t);
+                  if (t <= 0 && Math.abs(e.x - this.hero.x) < 160) {
+                    e.setData('state', 'diving');
+                    e.setVelocityX(this.hero.x > e.x ? 55 : -55);
+                    e.setVelocityY(520);
+                  }
+                } else if (state === 'diving') {
+                  if (e.y >= this.hero.y + 20 || e.y > 450) {
+                    e.setData('state', 'returning');
+                    e.setVelocityY(-300);
+                    e.setVelocityX(Math.random() > 0.5 ? 95 : -95);
+                  }
+                } else if (state === 'returning') {
+                  const homeY = e.getData('homeY') as number;
+                  if (e.y <= homeY) {
+                    e.setY(homeY); e.setVelocityY(0);
+                    e.setData('state', 'patrol');
+                    e.setData('diveTimer', Phaser.Math.Between(70, 200));
+                  }
+                }
+              } else if (type === 'caiman') {
+                // ── Caiman: slow patrol → sudden fast lunge ──
+                if (state === 'patrol') {
+                  if (eb.blocked.left)  e.setVelocityX(40);
+                  if (eb.blocked.right) e.setVelocityX(-40);
+                  e.setFlipX(eb.velocity.x < 0);
+                  if (Math.abs(e.x - this.hero.x) < 140 && Math.abs(e.y - this.hero.y) < 55) {
+                    e.setData('state', 'lunge');
+                    e.setData('lungeTimer', 65);
+                    e.setVelocityX(this.hero.x > e.x ? 400 : -400);
+                  }
+                } else if (state === 'lunge') {
+                  e.setFlipX(eb.velocity.x < 0);
+                  const t = (e.getData('lungeTimer') as number) - 1;
+                  e.setData('lungeTimer', t);
+                  if (t <= 0 || eb.blocked.left || eb.blocked.right) {
+                    e.setData('state', 'patrol');
+                    e.setVelocityX(eb.velocity.x > 0 ? -40 : 40);
+                  }
+                }
+              }
             }
           });
 
@@ -1118,8 +1321,8 @@ function GameInstance({ level, router }: { level: number; router: ReturnType<typ
 
       gameRef.current = new Phaser.Game({
         type: Phaser.AUTO,
-        width: window.innerWidth,
-        height: window.innerHeight,
+        width: 960,
+        height: 520,
         parent: containerRef.current!,
         backgroundColor: "#030814",
         physics: { default: "arcade", arcade: { gravity: { x: 0, y: 400 }, debug: false } },
@@ -1136,7 +1339,19 @@ function GameInstance({ level, router }: { level: number; router: ReturnType<typ
     };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  return <div className="w-screen h-screen overflow-hidden bg-black" ref={containerRef} />;
+  return (
+    <div className="w-screen h-screen overflow-hidden bg-black relative" ref={containerRef}>
+      <div className="absolute bottom-0 left-0 right-0 flex items-center justify-between px-4 py-2 bg-black/70 z-10 pointer-events-none">
+        <span className="flex-1 text-center text-slate-400 text-xs font-mono">← → move  ·  ↑ / Space jump</span>
+        <button
+          className="text-slate-300 text-xs font-bold font-mono hover:text-yellow-500 pointer-events-auto"
+          onClick={() => { audioRef.current?.stop(); router.push("/"); }}
+        >
+          MENU →
+        </button>
+      </div>
+    </div>
+  );
 }
 
 // Reads search params and remounts GameInstance fresh on every level change via key=

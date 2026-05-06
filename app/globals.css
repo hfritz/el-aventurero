@@ -41,3 +41,19 @@ body {
 .marker-ring  { animation: pulse-ring 2s ease-out infinite; }
 .map-glow     { animation: map-glow 3s ease-in-out infinite; }
 .float-title  { animation: float-title 4s ease-in-out infinite; }
+
+/* ── Rotate prompt — shown only on portrait mobile ───────────────────────── */
+@keyframes rotate-phone {
+  0%, 100% { transform: rotate(0deg); }
+  50%       { transform: rotate(90deg); }
+}
+
+.rotate-prompt {
+  display: none;
+}
+
+@media screen and (max-width: 1024px) and (orientation: portrait) {
+  .rotate-prompt {
+    display: flex;
+  }
+}

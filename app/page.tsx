@@ -1,18 +1,27 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 const LEVELS = [
-  { id: 1,  name: "Los Andes",       region: "Machu Picchu, Peru",        x: 214, y: 336, color: "#4ade80", unlocked: true  },
-  { id: 2,  name: "Tierra Azteca",   region: "Teotihuacán, Mexico",       x: 154, y: 218, color: "#fbbf24", unlocked: true  },
-  { id: 3,  name: "El Carnaval",      region: "Barranquilla, Colombia",    x: 218, y: 278, color: "#f472b6", unlocked: true  },
-  { id: 4,  name: "La Patagonia",    region: "Patagonia, Argentina",      x: 216, y: 464, color: "#60a5fa", unlocked: false },
-  { id: 5,  name: "El Caribe",        region: "Caribbean Coast",           x: 246, y: 272, color: "#f472b6", unlocked: false },
-  { id: 6,  name: "El Atacama",      region: "Atacama Desert, Chile",     x: 208, y: 378, color: "#fb923c", unlocked: false },
-  { id: 7,  name: "Buenos Aires",    region: "La Plata, Argentina",       x: 240, y: 424, color: "#a78bfa", unlocked: false },
-  { id: 8,  name: "El Orinoco",      region: "Orinoco Delta, Venezuela",  x: 254, y: 280, color: "#2dd4bf", unlocked: false },
-  { id: 10, name: "Río de Janeiro",  region: "Rio, Brazil",               x: 272, y: 378, color: "#facc15", unlocked: false },
+  { id: 1,  name: "Machu Picchu",              region: "Peru",        x: 214, y: 336, color: "#4ade80" },
+  { id: 2,  name: "Teotihuacán",               region: "Mexico",                    x: 154, y: 218, color: "#fbbf24" },
+  { id: 3,  name: "Carnaval de Barranquilla",  region: "Colombia",                  x: 218, y: 278, color: "#f472b6" },
+  { id: 4,  name: "Salto Ángel",               region: "Venezuela",                 x: 248, y: 295, color: "#38bdf8" },
+  { id: 5,  name: "El Caribe",                 region: "Caribbean Coast",           x: 246, y: 272, color: "#f472b6" },
+  { id: 6,  name: "El Atacama",                region: "Atacama Desert, Chile",     x: 208, y: 378, color: "#fb923c" },
+  { id: 7,  name: "Buenos Aires",              region: "La Plata, Argentina",       x: 240, y: 424, color: "#a78bfa" },
+  { id: 8,  name: "El Orinoco",                region: "Orinoco Delta, Venezuela",  x: 254, y: 280, color: "#2dd4bf" },
+  { id: 10, name: "Río de Janeiro",            region: "Rio, Brazil",               x: 272, y: 378, color: "#facc15" },
 ];
+
+function computeUnlocked(id: number, completed: number[]): boolean {
+  if (id === 1) return true;
+  if (id === 2) return completed.includes(1);
+  if (id === 3) return completed.includes(2);
+  if (id === 4) return completed.includes(1) && completed.includes(2) && completed.includes(3);
+  return false;
+}
 
 // Stars deterministic
 const STARS = Array.from({ length: 80 }, (_, i) => ({
@@ -96,6 +105,16 @@ const ROUTE_POINTS = LEVELS.map(l => `${l.x},${l.y}`).join(" L ");
 
 export default function LandingPage() {
   const router = useRouter();
+  const [completed, setCompleted] = useState<number[]>([]);
+
+  useEffect(() => {
+    try {
+      const saved = JSON.parse(localStorage.getItem('el-aventurero-completed') || '[]');
+      setCompleted(Array.isArray(saved) ? saved : []);
+    } catch {}
+  }, []);
+
+  const levels = LEVELS.map(l => ({ ...l, unlocked: computeUnlocked(l.id, completed) }));
 
   return (
     <div className="relative w-screen h-screen overflow-hidden select-none"
@@ -122,12 +141,13 @@ export default function LandingPage() {
         ))}
       </svg>
 
-      {/* Main layout: map left, title right */}
-      <div className="relative z-10 flex h-full items-center justify-center gap-0 px-8">
+      {/* Main layout: stacked on portrait, side-by-side on sm+ */}
+      <div className="relative z-10 flex flex-col sm:flex-row h-full items-center sm:items-stretch justify-center gap-6 sm:gap-0 px-4 sm:px-6 md:px-8 py-10 sm:py-0 overflow-y-auto sm:overflow-hidden">
 
-        {/* Americas Map */}
-        <div className="flex-shrink-0 map-glow" style={{ width: 340, height: 560 }}>
-          <svg viewBox="0 0 320 520" width={340} height={560} style={{ overflow: "visible" }}>
+        {/* Americas Map — portrait: 44vh; landscape/desktop: fills ~88vh capped at 680px */}
+        <div className="flex-shrink-0 map-glow h-[44vh] sm:h-[88vh] max-h-[680px]"
+          style={{ aspectRatio: '320 / 520', width: 'auto' }}>
+          <svg viewBox="0 0 320 520" width="100%" height="100%" style={{ overflow: "visible" }}>
             <defs>
               <radialGradient id="mapFill" cx="50%" cy="45%" r="55%">
                 <stop offset="0%" stopColor="#1a3a5c" stopOpacity="0.9"/>
@@ -162,7 +182,7 @@ export default function LandingPage() {
             />
 
             {/* Level markers */}
-            {LEVELS.map((level) => (
+            {levels.map((level) => (
               <g key={level.id}
                 style={{ cursor: level.unlocked ? "pointer" : "default" }}
                 onClick={() => level.unlocked && router.push(`/game?level=${level.id}`)}>
@@ -192,102 +212,104 @@ export default function LandingPage() {
                   {level.id}
                 </text>
 
-                {/* Label (unlocked only) — dark pill background for readability */}
-                {level.unlocked && (
-                  <g>
-                    <rect
-                      x={level.x + 9} y={level.y - 16}
-                      width={level.name.length * 5.2 + 8} height={13}
-                      rx={4} fill="#060e1a" fillOpacity={0.82}
-                    />
-                    <text x={level.x + 13} y={level.y - 6}
-                      fill={level.color} fontSize="8" fontWeight="bold" filter="url(#glow)">
-                      {level.name}
-                    </text>
-                  </g>
-                )}
               </g>
             ))}
           </svg>
         </div>
 
         {/* Right side: Title + Info */}
-        <div className="flex flex-col gap-6 max-w-sm" style={{ marginLeft: 32 }}>
+        <div className="flex flex-col gap-2 sm:gap-3 lg:gap-6 w-full sm:max-w-xs md:max-w-sm lg:max-w-md sm:ml-4 md:ml-8 lg:ml-12 sm:justify-center sm:py-4 md:py-6 lg:py-10">
 
-          {/* Title */}
+          {/* Title — font scales with viewport height so it never overflows on landscape mobile */}
           <div className="float-title">
-            <div className="text-xs tracking-[0.45em] uppercase mb-2"
+            <div className="text-[9px] lg:text-xs tracking-[0.45em] uppercase mb-1 lg:mb-2"
               style={{ color: "#D4A853", fontWeight: 600 }}>
               ✦ A Latin American Adventure ✦
             </div>
             <div className="font-black tracking-widest leading-none font-mono"
-              style={{ fontSize: 56, textShadow: "0 0 40px #D4A85388, 0 0 80px #D4A85333", color: "#D4A853" }}>
-              EL
+              style={{ fontSize: 'clamp(22px, 5.5vh, 56px)', textShadow: "0 0 40px #fff8, 0 0 80px #fff3", color: "#fff" }}>
+              EL AVENTURERO
             </div>
-            <div className="font-black tracking-widest leading-none font-mono"
-              style={{ fontSize: 56, textShadow: "0 0 40px #fff8, 0 0 80px #fff3", color: "#fff" }}>
-              AVENTURERO
-            </div>
-            <div className="mt-3 text-sm" style={{ color: "#a0b4c8", lineHeight: 1.7 }}>
-              Jump, run, and groove through 10 iconic<br/>
-              Latin American landscapes — each with its<br/>
-              own rhythm, culture, and challenge.
+            <div className="mt-1 lg:mt-3 text-[11px] lg:text-sm" style={{ color: "#a0b4c8", lineHeight: 1.6 }}>
+              Jump, run, and groove through 10 iconic Latin American landscapes — each with its own rhythm, culture, and challenge.
             </div>
           </div>
 
           {/* Level previews */}
-          <div className="flex flex-col gap-2">
-            {LEVELS.filter(l => l.unlocked).map(level => (
-              <div key={level.id}
-                onClick={() => router.push(`/game?level=${level.id}`)}
-                className="flex items-center gap-3 rounded-xl px-4 py-3 cursor-pointer transition-all"
-                style={{ background: `${level.color}15`, border: `1px solid ${level.color}44`,
-                  boxShadow: `0 0 20px ${level.color}22` }}
-                onMouseEnter={e => (e.currentTarget.style.background = `${level.color}25`)}
-                onMouseLeave={e => (e.currentTarget.style.background = `${level.color}15`)}>
-                <div className="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center font-black text-sm"
-                  style={{ background: level.color, color: "#000" }}>
-                  {level.id}
+          <div className="flex flex-col gap-1 lg:gap-2">
+            {levels.filter(l => l.id <= 4).map(level => (
+              level.unlocked ? (
+                <div key={level.id}
+                  onClick={() => router.push(`/game?level=${level.id}`)}
+                  className="flex items-center gap-2 lg:gap-3 rounded-xl px-3 lg:px-4 cursor-pointer transition-all"
+                  style={{ background: `${level.color}15`, border: `1px solid ${level.color}44`,
+                    boxShadow: `0 0 20px ${level.color}22`,
+                    paddingTop: 'clamp(6px, 1.2vh, 16px)',
+                    paddingBottom: 'clamp(6px, 1.2vh, 16px)' }}
+                  onMouseEnter={e => (e.currentTarget.style.background = `${level.color}25`)}
+                  onMouseLeave={e => (e.currentTarget.style.background = `${level.color}15`)}>
+                  <div className="flex-shrink-0 w-7 h-7 lg:w-9 lg:h-9 rounded-full flex items-center justify-center font-black text-sm"
+                    style={{ background: level.color, color: "#000" }}>
+                    {level.id}
+                  </div>
+                  <div>
+                    <div className="font-bold text-xs lg:text-sm" style={{ color: level.color }}>{level.name}</div>
+                    <div className="text-[10px] lg:text-xs" style={{ color: "#6080a0" }}>{level.region}</div>
+                  </div>
+                  <div className="ml-auto text-xs font-bold hidden sm:block" style={{ color: level.color }}>PLAY →</div>
                 </div>
-                <div>
-                  <div className="font-bold text-sm" style={{ color: level.color }}>{level.name}</div>
-                  <div className="text-xs" style={{ color: "#6080a0" }}>{level.region}</div>
+              ) : (
+                <div key={level.id}
+                  className="flex items-center gap-2 lg:gap-3 rounded-xl px-3 lg:px-4 opacity-40"
+                  style={{ background: "#0d1a2a", border: "1px solid #1a2a3a",
+                    paddingTop: 'clamp(6px, 1.2vh, 16px)',
+                    paddingBottom: 'clamp(6px, 1.2vh, 16px)' }}>
+                  <div className="flex-shrink-0 w-7 h-7 lg:w-9 lg:h-9 rounded-full flex items-center justify-center text-sm"
+                    style={{ background: "#1a2a3a", color: "#4a6a8a" }}>
+                    🔒
+                  </div>
+                  <div>
+                    <div className="font-bold text-xs lg:text-sm" style={{ color: "#4a6a8a" }}>{level.name}</div>
+                    <div className="text-[10px] lg:text-xs" style={{ color: "#3a5a7a" }}>{level.region}</div>
+                  </div>
                 </div>
-                <div className="ml-auto text-xs font-bold" style={{ color: level.color }}>PLAY →</div>
-              </div>
+              )
             ))}
-            {/* Locked levels hint */}
-            <div className="flex items-center gap-3 rounded-xl px-4 py-3"
-              style={{ background: "#0d1a2a", border: "1px solid #1a2a3a" }}>
-              <div className="text-lg">🔒</div>
-              <div className="text-xs" style={{ color: "#3a5070" }}>
-                8 more regions to unlock — complete levels to explore the continent
+            <div className="flex items-center gap-2 lg:gap-3 rounded-xl px-3 lg:px-4"
+              style={{ background: "#0d1a2a", border: "1px solid #1a2a3a",
+                paddingTop: 'clamp(6px, 1.2vh, 16px)',
+                paddingBottom: 'clamp(6px, 1.2vh, 16px)' }}>
+              <div className="text-sm lg:text-lg">🔒</div>
+              <div className="text-[10px] lg:text-xs" style={{ color: "#4a6a8a" }}>
+                6 more regions coming soon
               </div>
             </div>
           </div>
 
           {/* CTA */}
           <button onClick={() => router.push("/game?level=1")}
-            className="font-black tracking-widest rounded-2xl py-4 text-lg transition-all active:scale-95"
+            className="font-black tracking-widest rounded-2xl text-sm lg:text-lg transition-all active:scale-95"
             style={{ background: "linear-gradient(135deg, #D4A853, #f59e0b, #D4A853)",
               backgroundSize: "200% 100%",
               color: "#0a0a0a",
               boxShadow: "0 0 30px #D4A85366, 0 0 60px #D4A85333",
-              letterSpacing: "0.2em" }}>
+              letterSpacing: "0.2em",
+              paddingTop: 'clamp(8px, 1.5vh, 20px)',
+              paddingBottom: 'clamp(8px, 1.5vh, 20px)' }}>
             START ▶
           </button>
 
-          <div className="text-center text-xs" style={{ color: "#2a3a4a" }}>
+          <div className="hidden sm:block text-center text-xs" style={{ color: "#4a6a8a" }}>
             Arrow keys or WASD to move · Space to jump
           </div>
         </div>
       </div>
 
       {/* Footer */}
-      <div className="absolute bottom-4 w-full text-center text-xs" style={{ color: "#1a2a3a" }}>
+      <div className="absolute bottom-3 left-4 text-left text-xs z-20" style={{ color: "#4a6a8a" }}>
         Built by{" "}
         <a href="https://helmutfritz.fyi" target="_blank" rel="noopener noreferrer"
-          className="transition-colors" style={{ color: "#2a4a6a" }}>
+          className="transition-colors" style={{ color: "#6a9abf" }}>
           Helmut Fritz
         </a>
         {" "}using AI tools · 2026
