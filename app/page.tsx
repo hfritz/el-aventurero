@@ -101,7 +101,7 @@ const SOUTH_AMERICA = `
 `;
 
 // Route path between levels in order
-const ROUTE_POINTS = LEVELS.map(l => `${l.x},${l.y}`).join(" L ");
+const ROUTE_POINTS = LEVELS.map(l => `${l.x},${l.y}`).join(" ");
 
 export default function LandingPage() {
   const router = useRouter();
