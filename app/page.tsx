@@ -186,12 +186,6 @@ export default function LandingPage() {
                   style={level.unlocked ? { transformOrigin: `${level.x}px ${level.y}px` } : undefined}
                 />
 
-                {/* Level number */}
-                <text x={level.x} y={level.y + 4} textAnchor="middle"
-                  fill={level.unlocked ? "#000" : "#4a5a6a"}
-                  fontSize="6" fontWeight="bold">
-                  {level.id}
-                </text>
 
               </g>
             ))}
