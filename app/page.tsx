@@ -128,18 +128,6 @@ export default function LandingPage() {
         ))}
       </svg>
 
-      {/* Decorative Aztec/Inca geometric border lines */}
-      <svg className="absolute inset-0 pointer-events-none opacity-10" width="100%" height="100%" viewBox="0 0 800 600">
-        <rect x="24" y="24" width="752" height="552" rx="4" fill="none" stroke="#D4A853" strokeWidth="1"/>
-        <rect x="32" y="32" width="736" height="536" rx="2" fill="none" stroke="#D4A853" strokeWidth="0.5"/>
-        {/* Corner ornaments */}
-        {[[40,40],[760,40],[40,560],[760,560]].map(([cx,cy],i) => (
-          <g key={i}>
-            <rect x={cx-8} y={cy-8} width="16" height="16" fill="none" stroke="#D4A853" strokeWidth="1"/>
-            <rect x={cx-4} y={cy-4} width="8" height="8" fill="#D4A853" opacity="0.5"/>
-          </g>
-        ))}
-      </svg>
 
       {/* Main layout: stacked on portrait, side-by-side on sm+ */}
       <div className="relative z-10 flex flex-col sm:flex-row sm:h-full items-center sm:items-stretch justify-start sm:justify-center gap-6 sm:gap-0 px-4 sm:px-6 md:px-8 py-8 sm:py-0 sm:overflow-hidden">
@@ -173,13 +161,6 @@ export default function LandingPage() {
             {/* South America (includes Brazil bulge) */}
             <path d={SOUTH_AMERICA} fill="url(#mapFill)" stroke="#D4A853" strokeWidth="1.2" strokeLinejoin="round"/>
 
-            {/* Route connecting levels */}
-            <polyline
-              points={ROUTE_POINTS}
-              fill="none" stroke="#D4A853" strokeWidth="0.8"
-              strokeDasharray="3 4" opacity="0.4"
-              style={{ animation: "draw-path 3s ease-out forwards" }}
-            />
 
             {/* Level markers */}
             {levels.map((level) => (
@@ -218,95 +199,97 @@ export default function LandingPage() {
         </div>
 
         {/* Right side: Title + Info */}
-        <div className="flex flex-col gap-2 sm:gap-3 lg:gap-6 w-full sm:max-w-xs md:max-w-sm lg:max-w-md sm:ml-4 md:ml-8 lg:ml-12 sm:justify-center sm:py-4 md:py-6 lg:py-10">
+        <div className="flex flex-col gap-2 sm:gap-2 lg:gap-6 w-full sm:max-w-xs md:max-w-sm lg:max-w-md sm:ml-4 md:ml-8 lg:ml-12 sm:justify-center sm:py-2 lg:py-10">
 
-          {/* Title — font scales with viewport height so it never overflows on landscape mobile */}
+          {/* Title */}
           <div className="float-title">
-            <div className="text-[9px] lg:text-xs tracking-[0.45em] uppercase mb-1 lg:mb-2"
+            <div className="hidden lg:block text-[9px] lg:text-xs tracking-[0.45em] uppercase mb-1 lg:mb-2"
               style={{ color: "#D4A853", fontWeight: 600 }}>
               ✦ A Latin American Adventure ✦
             </div>
             <div className="font-black tracking-widest leading-none font-mono"
-              style={{ fontSize: 'clamp(22px, 5.5vh, 56px)', textShadow: "0 0 40px #fff8, 0 0 80px #fff3", color: "#fff" }}>
+              style={{ fontSize: 'clamp(18px, 5.5vh, 56px)', textShadow: "0 0 40px #fff8, 0 0 80px #fff3", color: "#fff" }}>
               EL AVENTURERO
             </div>
-            <div className="mt-1 lg:mt-3 text-[11px] lg:text-sm" style={{ color: "#a0b4c8", lineHeight: 1.6 }}>
+            <div className="hidden lg:block mt-1 lg:mt-3 text-[11px] lg:text-sm" style={{ color: "#a0b4c8", lineHeight: 1.6 }}>
               Jump, run, and groove through 10 iconic Latin American landscapes — each with its own rhythm, culture, and challenge.
             </div>
           </div>
 
           {/* Level previews */}
-          <div className="flex flex-col gap-1 lg:gap-2">
+          <div className="flex flex-col gap-1">
             {levels.filter(l => l.id <= 4).map(level => (
               level.unlocked ? (
                 <div key={level.id}
                   onClick={() => router.push(`/game?level=${level.id}`)}
-                  className="flex items-center gap-2 lg:gap-3 rounded-xl px-3 lg:px-4 cursor-pointer transition-all"
+                  className="flex items-center gap-2 rounded-xl px-3 cursor-pointer transition-all"
                   style={{ background: `${level.color}15`, border: `1px solid ${level.color}44`,
                     boxShadow: `0 0 20px ${level.color}22`,
-                    paddingTop: 'clamp(6px, 1.2vh, 16px)',
-                    paddingBottom: 'clamp(6px, 1.2vh, 16px)' }}
+                    paddingTop: 'clamp(5px, 1vh, 14px)',
+                    paddingBottom: 'clamp(5px, 1vh, 14px)' }}
                   onMouseEnter={e => (e.currentTarget.style.background = `${level.color}25`)}
                   onMouseLeave={e => (e.currentTarget.style.background = `${level.color}15`)}>
-                  <div className="flex-shrink-0 w-7 h-7 lg:w-9 lg:h-9 rounded-full flex items-center justify-center font-black text-sm"
+                  <div className="flex-shrink-0 w-6 h-6 lg:w-9 lg:h-9 rounded-full flex items-center justify-center font-black text-xs lg:text-sm"
                     style={{ background: level.color, color: "#000" }}>
                     {level.id}
                   </div>
-                  <div>
-                    <div className="font-bold text-xs lg:text-sm" style={{ color: level.color }}>{level.name}</div>
-                    <div className="text-[10px] lg:text-xs" style={{ color: "#6080a0" }}>{level.region}</div>
+                  <div className="flex sm:flex-row lg:flex-col sm:items-baseline lg:items-start sm:gap-1 lg:gap-0 min-w-0">
+                    <div className="font-bold text-xs lg:text-sm truncate" style={{ color: level.color }}>{level.name}</div>
+                    <div className="text-[10px] whitespace-nowrap" style={{ color: "#6080a0" }}>
+                      <span className="hidden sm:inline lg:hidden">· </span>{level.region}
+                    </div>
                   </div>
-                  <div className="ml-auto text-xs font-bold hidden sm:block" style={{ color: level.color }}>PLAY →</div>
+                  <div className="ml-auto text-xs font-bold flex-shrink-0 hidden sm:block" style={{ color: level.color }}>PLAY →</div>
                 </div>
               ) : (
                 <div key={level.id}
-                  className="flex items-center gap-2 lg:gap-3 rounded-xl px-3 lg:px-4 opacity-40"
+                  className="flex items-center gap-2 rounded-xl px-3 opacity-40"
                   style={{ background: "#0d1a2a", border: "1px solid #1a2a3a",
-                    paddingTop: 'clamp(6px, 1.2vh, 16px)',
-                    paddingBottom: 'clamp(6px, 1.2vh, 16px)' }}>
-                  <div className="flex-shrink-0 w-7 h-7 lg:w-9 lg:h-9 rounded-full flex items-center justify-center text-sm"
+                    paddingTop: 'clamp(5px, 1vh, 14px)',
+                    paddingBottom: 'clamp(5px, 1vh, 14px)' }}>
+                  <div className="flex-shrink-0 w-6 h-6 lg:w-9 lg:h-9 rounded-full flex items-center justify-center text-xs"
                     style={{ background: "#1a2a3a", color: "#4a6a8a" }}>
                     🔒
                   </div>
-                  <div>
-                    <div className="font-bold text-xs lg:text-sm" style={{ color: "#4a6a8a" }}>{level.name}</div>
-                    <div className="text-[10px] lg:text-xs" style={{ color: "#3a5a7a" }}>{level.region}</div>
+                  <div className="flex sm:flex-row lg:flex-col sm:items-baseline lg:items-start sm:gap-1 lg:gap-0 min-w-0">
+                    <div className="font-bold text-xs lg:text-sm truncate" style={{ color: "#4a6a8a" }}>{level.name}</div>
+                    <div className="text-[10px] whitespace-nowrap" style={{ color: "#3a5a7a" }}>
+                      <span className="hidden sm:inline lg:hidden">· </span>{level.region}
+                    </div>
                   </div>
                 </div>
               )
             ))}
-            <div className="flex items-center gap-2 lg:gap-3 rounded-xl px-3 lg:px-4"
+            <div className="flex items-center gap-2 rounded-xl px-3"
               style={{ background: "#0d1a2a", border: "1px solid #1a2a3a",
-                paddingTop: 'clamp(6px, 1.2vh, 16px)',
-                paddingBottom: 'clamp(6px, 1.2vh, 16px)' }}>
-              <div className="text-sm lg:text-lg">🔒</div>
-              <div className="text-[10px] lg:text-xs" style={{ color: "#4a6a8a" }}>
-                6 more regions coming soon
-              </div>
+                paddingTop: 'clamp(5px, 1vh, 14px)',
+                paddingBottom: 'clamp(5px, 1vh, 14px)' }}>
+              <div className="text-xs lg:text-lg">🔒</div>
+              <div className="text-[10px] lg:text-xs" style={{ color: "#4a6a8a" }}>6 more regions coming soon</div>
             </div>
           </div>
 
           {/* CTA */}
           <button onClick={() => router.push("/game?level=1")}
-            className="font-black tracking-widest rounded-2xl text-sm lg:text-lg transition-all active:scale-95"
+            className="font-black tracking-widest rounded-xl lg:rounded-2xl text-xs lg:text-lg transition-all active:scale-95"
             style={{ background: "linear-gradient(135deg, #D4A853, #f59e0b, #D4A853)",
               backgroundSize: "200% 100%",
               color: "#0a0a0a",
               boxShadow: "0 0 30px #D4A85366, 0 0 60px #D4A85333",
               letterSpacing: "0.2em",
-              paddingTop: 'clamp(8px, 1.5vh, 20px)',
-              paddingBottom: 'clamp(8px, 1.5vh, 20px)' }}>
+              paddingTop: 'clamp(6px, 1.2vh, 18px)',
+              paddingBottom: 'clamp(6px, 1.2vh, 18px)' }}>
             START ▶
           </button>
 
-          <div className="hidden sm:block text-center text-xs" style={{ color: "#4a6a8a" }}>
+          <div className="hidden lg:block text-center text-xs" style={{ color: "#4a6a8a" }}>
             Arrow keys or WASD to move · Space to jump
           </div>
         </div>
       </div>
 
       {/* Footer */}
-      <div className="absolute bottom-3 left-4 text-left text-xs z-20" style={{ color: "#4a6a8a" }}>
+      <div className="absolute bottom-3 left-4 lg:left-0 lg:right-0 text-left lg:text-center text-xs z-20" style={{ color: "#4a6a8a" }}>
         Built by{" "}
         <a href="https://helmutfritz.fyi" target="_blank" rel="noopener noreferrer"
           className="transition-colors" style={{ color: "#6a9abf" }}>
