@@ -117,7 +117,7 @@ export default function LandingPage() {
   const levels = LEVELS.map(l => ({ ...l, unlocked: computeUnlocked(l.id, completed) }));
 
   return (
-    <div className="relative w-screen h-screen overflow-hidden select-none"
+    <div className="relative w-screen h-dvh overflow-hidden select-none"
       style={{ background: "radial-gradient(ellipse at 40% 50%, #0a1628 0%, #030814 60%, #000005 100%)" }}>
 
       {/* Stars */}
