@@ -1345,37 +1345,39 @@ function GameInstance({ level, router }: { level: number; router: ReturnType<typ
 
   return (
     <div className="w-screen h-dvh bg-black flex flex-col">
-      <div className="flex-1 overflow-hidden" ref={containerRef} />
-      {isTouchDevice ? (
-        <div className="flex items-center justify-between px-3 py-2 bg-black/80 gap-3">
-          <div className="flex gap-2">
-            <button
-              className="w-16 h-12 rounded-xl bg-white/10 border border-white/20 text-white text-xl font-bold active:bg-white/25 select-none touch-none"
-              onTouchStart={(e) => { e.preventDefault(); keysHeld.current.add('ArrowLeft'); }}
-              onTouchEnd={(e) => { e.preventDefault(); keysHeld.current.delete('ArrowLeft'); }}
-              onTouchCancel={(e) => { e.preventDefault(); keysHeld.current.delete('ArrowLeft'); }}
-            >←</button>
-            <button
-              className="w-16 h-12 rounded-xl bg-white/10 border border-white/20 text-white text-xl font-bold active:bg-white/25 select-none touch-none"
-              onTouchStart={(e) => { e.preventDefault(); keysHeld.current.add('ArrowRight'); }}
-              onTouchEnd={(e) => { e.preventDefault(); keysHeld.current.delete('ArrowRight'); }}
-              onTouchCancel={(e) => { e.preventDefault(); keysHeld.current.delete('ArrowRight'); }}
-            >→</button>
-          </div>
-          <div className="flex items-center gap-3">
-            <button
-              className="text-slate-400 text-xs font-mono px-2 py-1"
-              onClick={() => { audioRef.current?.stop(); router.push("/"); }}
-            >MENU</button>
-            <button
-              className="w-24 h-12 rounded-xl bg-yellow-500/20 border border-yellow-500/40 text-yellow-400 font-bold text-sm active:bg-yellow-500/40 select-none touch-none"
-              onTouchStart={(e) => { e.preventDefault(); keysJustPressed.current.add('Space'); }}
-              onTouchEnd={(e) => { e.preventDefault(); }}
-              onTouchCancel={(e) => { e.preventDefault(); }}
-            >JUMP</button>
-          </div>
-        </div>
-      ) : (
+      <div className="flex-1 overflow-hidden relative" ref={containerRef}>
+        {isTouchDevice && (
+          <>
+            <div className="absolute bottom-4 left-4 flex gap-2 z-10">
+              <button
+                className="w-16 h-14 rounded-xl bg-black/50 border border-white/20 text-white text-xl font-bold active:bg-white/20 select-none touch-none"
+                onTouchStart={(e) => { e.preventDefault(); keysHeld.current.add('ArrowLeft'); }}
+                onTouchEnd={(e) => { e.preventDefault(); keysHeld.current.delete('ArrowLeft'); }}
+                onTouchCancel={(e) => { e.preventDefault(); keysHeld.current.delete('ArrowLeft'); }}
+              >←</button>
+              <button
+                className="w-16 h-14 rounded-xl bg-black/50 border border-white/20 text-white text-xl font-bold active:bg-white/20 select-none touch-none"
+                onTouchStart={(e) => { e.preventDefault(); keysHeld.current.add('ArrowRight'); }}
+                onTouchEnd={(e) => { e.preventDefault(); keysHeld.current.delete('ArrowRight'); }}
+                onTouchCancel={(e) => { e.preventDefault(); keysHeld.current.delete('ArrowRight'); }}
+              >→</button>
+            </div>
+            <div className="absolute bottom-4 right-4 flex items-center gap-3 z-10">
+              <button
+                className="text-slate-400 text-xs font-mono px-2 py-1"
+                onClick={() => { audioRef.current?.stop(); router.push("/"); }}
+              >MENU</button>
+              <button
+                className="w-24 h-14 rounded-xl bg-yellow-500/30 border border-yellow-500/50 text-yellow-400 font-bold text-sm active:bg-yellow-500/50 select-none touch-none"
+                onTouchStart={(e) => { e.preventDefault(); keysJustPressed.current.add('Space'); }}
+                onTouchEnd={(e) => { e.preventDefault(); }}
+                onTouchCancel={(e) => { e.preventDefault(); }}
+              >JUMP</button>
+            </div>
+          </>
+        )}
+      </div>
+      {!isTouchDevice && (
         <div className="flex items-center justify-between px-4 py-2 bg-black/70 z-10 pointer-events-none">
           <span className="flex-1 text-center text-slate-400 text-xs font-mono">← → move  ·  ↑ / Space jump</span>
           <button
