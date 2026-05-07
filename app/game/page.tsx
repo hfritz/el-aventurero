@@ -10,6 +10,8 @@ function GameInstance({ level, router }: { level: number; router: ReturnType<typ
   const keysHeld = useRef<Set<string>>(new Set());
   const keysJustPressed = useRef<Set<string>>(new Set());
   const [isTouchDevice, setIsTouchDevice] = useState(false);
+  const [endScreen, setEndScreen] = useState<{ type: 'gameover' | 'complete'; nextLevel: number | null } | null>(null);
+  const restartRef = useRef<() => void>(() => {});
 
   useEffect(() => {
     setIsTouchDevice('ontouchstart' in window || navigator.maxTouchPoints > 0);
@@ -1050,18 +1052,8 @@ function GameInstance({ level, router }: { level: number; router: ReturnType<typ
             fontSize: "26px", color: "#fbbf24", stroke: "#000", strokeThickness: 3,
           }).setOrigin(0.5).setScrollFactor(0).setDepth(11);
 
-          const mkBtn = (x: number, label: string, color: string, cb: () => void) => {
-            const btn = this.add.text(x, H/2 + 50, label, {
-              fontSize: "24px", color, fontStyle: "bold",
-              backgroundColor: "#00000088", padding: { x: 20, y: 10 },
-              stroke: "#000", strokeThickness: 3,
-            }).setOrigin(0.5).setScrollFactor(0).setDepth(11).setInteractive({ useHandCursor: true });
-            btn.on("pointerover",  () => btn.setColor("#ffffff"));
-            btn.on("pointerout",   () => btn.setColor(color));
-            btn.on("pointerdown",  cb);
-          };
-          mkBtn(W/2 - 100, "↺  RETRY",  "#4ade80", () => { this.audio?.stop(); this.scene.restart(); });
-          mkBtn(W/2 + 100, "⌂  MENU",   "#60a5fa", () => { this.audio?.stop(); router.push("/"); });
+          restartRef.current = () => { this.audio?.stop(); this.scene.restart(); };
+          setEndScreen({ type: 'gameover', nextLevel: null });
         }
 
         showLevelComplete() {
@@ -1087,26 +1079,7 @@ function GameInstance({ level, router }: { level: number; router: ReturnType<typ
             fontSize: "26px", color: "#fbbf24", stroke: "#000", strokeThickness: 3,
           }).setOrigin(0.5).setScrollFactor(0).setDepth(11);
 
-          const mkBtn = (x: number, label: string, color: string, cb: () => void) => {
-            const btn = this.add.text(x, H/2 + 70, label, {
-              fontSize: "22px", color, fontStyle: "bold",
-              backgroundColor: "#00000088", padding: { x: 20, y: 10 },
-              stroke: "#000", strokeThickness: 3,
-            }).setOrigin(0.5).setScrollFactor(0).setDepth(11).setInteractive({ useHandCursor: true });
-            btn.on("pointerover",  () => btn.setColor("#ffffff"));
-            btn.on("pointerout",   () => btn.setColor(color));
-            btn.on("pointerdown",  cb);
-          };
-
-          if (this.cfg.nextLevel) {
-            mkBtn(W/2 - 110, "▶  NEXT LEVEL", "#4ade80", () => {
-              this.audio?.stop();
-              router.push(`/game?level=${this.cfg.nextLevel}`);
-            });
-          }
-          mkBtn(this.cfg.nextLevel ? W/2 + 110 : W/2, "⌂  MENU", "#60a5fa", () => {
-            this.audio?.stop(); router.push("/");
-          });
+          setEndScreen({ type: 'complete', nextLevel: this.cfg.nextLevel ?? null });
         }
 
         update() {
@@ -1346,6 +1319,31 @@ function GameInstance({ level, router }: { level: number; router: ReturnType<typ
   return (
     <div className="w-screen h-dvh bg-black flex flex-col">
       <div className="flex-1 overflow-hidden relative" ref={containerRef}>
+        {endScreen && (
+          <div className="absolute inset-0 z-20 flex items-end justify-center pb-24">
+            <div className="flex gap-4">
+              {endScreen.type === 'gameover' && (
+                <button
+                  className="px-6 py-3 rounded-xl font-black text-sm tracking-widest active:scale-95 transition-transform"
+                  style={{ background: '#4ade8033', border: '2px solid #4ade80', color: '#4ade80' }}
+                  onClick={() => { setEndScreen(null); restartRef.current(); }}
+                >↺ RETRY</button>
+              )}
+              {endScreen.type === 'complete' && endScreen.nextLevel && (
+                <button
+                  className="px-6 py-3 rounded-xl font-black text-sm tracking-widest active:scale-95 transition-transform"
+                  style={{ background: '#4ade8033', border: '2px solid #4ade80', color: '#4ade80' }}
+                  onClick={() => { audioRef.current?.stop(); router.push(`/game?level=${endScreen.nextLevel}`); }}
+                >▶ NEXT LEVEL</button>
+              )}
+              <button
+                className="px-6 py-3 rounded-xl font-black text-sm tracking-widest active:scale-95 transition-transform"
+                style={{ background: '#60a5fa33', border: '2px solid #60a5fa', color: '#60a5fa' }}
+                onClick={() => { audioRef.current?.stop(); router.push('/'); }}
+              >⌂ MENU</button>
+            </div>
+          </div>
+        )}
         {isTouchDevice && (
           <>
             <div className="absolute bottom-4 left-4 flex gap-2 z-10">
