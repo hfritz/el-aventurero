@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, Suspense } from "react";
+import { useEffect, useRef, useState, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 
 function GameInstance({ level, router }: { level: number; router: ReturnType<typeof useRouter> }) {
@@ -9,8 +9,10 @@ function GameInstance({ level, router }: { level: number; router: ReturnType<typ
   const gameRef = useRef<{ destroy: (b: boolean) => void } | null>(null);
   const keysHeld = useRef<Set<string>>(new Set());
   const keysJustPressed = useRef<Set<string>>(new Set());
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
 
   useEffect(() => {
+    setIsTouchDevice('ontouchstart' in window || navigator.maxTouchPoints > 0);
     const gameCodes = new Set(['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','Space','KeyW','KeyA','KeyD']);
     const onDown = (e: KeyboardEvent) => {
       if (gameCodes.has(e.code)) e.preventDefault();
@@ -970,7 +972,8 @@ function GameInstance({ level, router }: { level: number; router: ReturnType<typ
             stroke: '#000000', strokeThickness: 3,
           }).setOrigin(0.5).setScrollFactor(0).setDepth(21).setAlpha(0);
 
-          const hintObj = this.add.text(W/2, H/2 + 96, 'press any key to start', {
+          const hintText = this.sys.game.device.input.touch ? 'tap to start' : 'press any key to start';
+          const hintObj = this.add.text(W/2, H/2 + 96, hintText, {
             fontSize: '12px', color: '#888888',
           }).setOrigin(0.5).setScrollFactor(0).setDepth(21).setAlpha(0);
 
@@ -993,8 +996,9 @@ function GameInstance({ level, router }: { level: number; router: ReturnType<typ
             onComplete: () => this.time.delayedCall(2200, dismiss),
           });
 
-          // Any key skips immediately
+          // Any key or tap skips immediately
           this.input.keyboard?.once('keydown', dismiss);
+          this.input.once('pointerdown', dismiss);
         }
 
         stompEnemy(enemy: Phaser.Physics.Arcade.Sprite) {
@@ -1342,15 +1346,44 @@ function GameInstance({ level, router }: { level: number; router: ReturnType<typ
   return (
     <div className="w-screen h-dvh bg-black flex flex-col">
       <div className="flex-1 overflow-hidden" ref={containerRef} />
-      <div className="flex items-center justify-between px-4 py-2 bg-black/70 z-10 pointer-events-none">
-        <span className="flex-1 text-center text-slate-400 text-xs font-mono">← → move  ·  ↑ / Space jump</span>
-        <button
-          className="text-slate-300 text-xs font-bold font-mono hover:text-yellow-500 pointer-events-auto"
-          onClick={() => { audioRef.current?.stop(); router.push("/"); }}
-        >
-          MENU →
-        </button>
-      </div>
+      {isTouchDevice ? (
+        <div className="flex items-center justify-between px-3 py-2 bg-black/80 gap-3">
+          <div className="flex gap-2">
+            <button
+              className="w-16 h-12 rounded-xl bg-white/10 border border-white/20 text-white text-xl font-bold active:bg-white/25 select-none touch-none"
+              onTouchStart={(e) => { e.preventDefault(); keysHeld.current.add('ArrowLeft'); }}
+              onTouchEnd={(e) => { e.preventDefault(); keysHeld.current.delete('ArrowLeft'); }}
+              onTouchCancel={(e) => { e.preventDefault(); keysHeld.current.delete('ArrowLeft'); }}
+            >←</button>
+            <button
+              className="w-16 h-12 rounded-xl bg-white/10 border border-white/20 text-white text-xl font-bold active:bg-white/25 select-none touch-none"
+              onTouchStart={(e) => { e.preventDefault(); keysHeld.current.add('ArrowRight'); }}
+              onTouchEnd={(e) => { e.preventDefault(); keysHeld.current.delete('ArrowRight'); }}
+              onTouchCancel={(e) => { e.preventDefault(); keysHeld.current.delete('ArrowRight'); }}
+            >→</button>
+          </div>
+          <div className="flex items-center gap-3">
+            <button
+              className="text-slate-400 text-xs font-mono px-2 py-1"
+              onClick={() => { audioRef.current?.stop(); router.push("/"); }}
+            >MENU</button>
+            <button
+              className="w-24 h-12 rounded-xl bg-yellow-500/20 border border-yellow-500/40 text-yellow-400 font-bold text-sm active:bg-yellow-500/40 select-none touch-none"
+              onTouchStart={(e) => { e.preventDefault(); keysJustPressed.current.add('Space'); }}
+              onTouchEnd={(e) => { e.preventDefault(); }}
+              onTouchCancel={(e) => { e.preventDefault(); }}
+            >JUMP</button>
+          </div>
+        </div>
+      ) : (
+        <div className="flex items-center justify-between px-4 py-2 bg-black/70 z-10 pointer-events-none">
+          <span className="flex-1 text-center text-slate-400 text-xs font-mono">← → move  ·  ↑ / Space jump</span>
+          <button
+            className="text-slate-300 text-xs font-bold font-mono hover:text-yellow-500 pointer-events-auto"
+            onClick={() => { audioRef.current?.stop(); router.push("/"); }}
+          >MENU →</button>
+        </div>
+      )}
     </div>
   );
 }
