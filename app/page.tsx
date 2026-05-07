@@ -117,11 +117,11 @@ export default function LandingPage() {
   const levels = LEVELS.map(l => ({ ...l, unlocked: computeUnlocked(l.id, completed) }));
 
   return (
-    <div className="relative w-screen h-dvh overflow-hidden select-none"
+    <div className="relative w-screen min-h-dvh sm:h-dvh sm:overflow-hidden select-none"
       style={{ background: "radial-gradient(ellipse at 40% 50%, #0a1628 0%, #030814 60%, #000005 100%)" }}>
 
-      {/* Stars */}
-      <svg className="absolute inset-0 pointer-events-none" width="100%" height="100%" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice">
+      {/* Stars — fixed on mobile so they cover the screen during scroll */}
+      <svg className="fixed sm:absolute inset-0 pointer-events-none -z-10 sm:z-0" width="100%" height="100%" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice">
         {STARS.map((s, i) => (
           <circle key={i} cx={s.cx} cy={s.cy} r={s.r} fill="white"
             style={{ animation: `star-twinkle ${1.5 + s.delay}s ease-in-out ${s.delay}s infinite` }} />
@@ -142,7 +142,7 @@ export default function LandingPage() {
       </svg>
 
       {/* Main layout: stacked on portrait, side-by-side on sm+ */}
-      <div className="relative z-10 flex flex-col sm:flex-row h-full items-center sm:items-stretch justify-center gap-6 sm:gap-0 px-4 sm:px-6 md:px-8 py-10 sm:py-0 overflow-y-auto sm:overflow-hidden">
+      <div className="relative z-10 flex flex-col sm:flex-row sm:h-full items-center sm:items-stretch justify-start sm:justify-center gap-6 sm:gap-0 px-4 sm:px-6 md:px-8 py-8 sm:py-0 sm:overflow-hidden">
 
         {/* Americas Map — portrait: 44vh; landscape/desktop: fills ~88vh capped at 680px */}
         <div className="flex-shrink-0 map-glow h-[44vh] sm:h-[88vh] max-h-[680px]"
