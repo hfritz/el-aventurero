@@ -1340,8 +1340,9 @@ function GameInstance({ level, router }: { level: number; router: ReturnType<typ
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <div className="w-screen h-dvh overflow-hidden bg-black relative" ref={containerRef}>
-      <div className="absolute bottom-0 left-0 right-0 flex items-center justify-between px-4 py-2 bg-black/70 z-10 pointer-events-none">
+    <div className="w-screen h-dvh bg-black flex flex-col">
+      <div className="flex-1 overflow-hidden" ref={containerRef} />
+      <div className="flex items-center justify-between px-4 py-2 bg-black/70 z-10 pointer-events-none">
         <span className="flex-1 text-center text-slate-400 text-xs font-mono">← → move  ·  ↑ / Space jump</span>
         <button
           className="text-slate-300 text-xs font-bold font-mono hover:text-yellow-500 pointer-events-auto"
