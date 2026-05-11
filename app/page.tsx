@@ -8,11 +8,12 @@ const LEVELS = [
   { id: 2,  name: "Teotihuacán",               region: "Mexico",                    x: 154, y: 218, color: "#fbbf24" },
   { id: 3,  name: "Carnaval de Barranquilla",  region: "Colombia",                  x: 218, y: 278, color: "#f472b6" },
   { id: 4,  name: "Salto Ángel",               region: "Venezuela",                 x: 248, y: 295, color: "#38bdf8" },
-  { id: 5,  name: "El Caribe",                 region: "Caribbean Coast",           x: 246, y: 272, color: "#f472b6" },
-  { id: 6,  name: "El Atacama",                region: "Atacama Desert, Chile",     x: 208, y: 378, color: "#fb923c" },
-  { id: 7,  name: "Buenos Aires",              region: "La Plata, Argentina",       x: 240, y: 424, color: "#a78bfa" },
-  { id: 8,  name: "El Orinoco",                region: "Orinoco Delta, Venezuela",  x: 254, y: 280, color: "#2dd4bf" },
-  { id: 10, name: "Río de Janeiro",            region: "Rio, Brazil",               x: 272, y: 378, color: "#facc15" },
+  { id: 5,  name: "Río de Janeiro",            region: "Brazil",                    x: 272, y: 378, color: "#facc15" },
+  { id: 6,  name: "El Caribe",                 region: "Caribbean Coast",           x: 246, y: 272, color: "#f472b6" },
+  { id: 7,  name: "El Atacama",                region: "Atacama Desert, Chile",     x: 208, y: 378, color: "#fb923c" },
+  { id: 8,  name: "Buenos Aires",              region: "La Plata, Argentina",       x: 240, y: 424, color: "#a78bfa" },
+  { id: 9,  name: "El Orinoco",                region: "Orinoco Delta, Venezuela",  x: 254, y: 280, color: "#2dd4bf" },
+  { id: 10, name: "Patagonia",                 region: "Southern Andes",            x: 206, y: 492, color: "#93c5fd" },
 ];
 
 function computeUnlocked(id: number, completed: number[]): boolean {
@@ -20,6 +21,7 @@ function computeUnlocked(id: number, completed: number[]): boolean {
   if (id === 2) return completed.includes(1);
   if (id === 3) return completed.includes(2);
   if (id === 4) return completed.includes(1) && completed.includes(2) && completed.includes(3);
+  if (id === 5) return completed.includes(4);
   return false;
 }
 
@@ -212,7 +214,7 @@ export default function LandingPage() {
 
           {/* Level previews */}
           <div className="flex flex-col gap-1">
-            {levels.filter(l => l.id <= 4).map(level => (
+            {levels.filter(l => l.id <= 5).map(level => (
               level.unlocked ? (
                 <div key={level.id}
                   onClick={() => router.push(`/game?level=${level.id}`)}
@@ -259,7 +261,7 @@ export default function LandingPage() {
                 paddingTop: 'clamp(5px, 1vh, 14px)',
                 paddingBottom: 'clamp(5px, 1vh, 14px)' }}>
               <div className="text-xs lg:text-lg">🔒</div>
-              <div className="text-[10px] lg:text-xs" style={{ color: "#4a6a8a" }}>6 more regions coming soon</div>
+              <div className="text-[10px] lg:text-xs" style={{ color: "#4a6a8a" }}>5 more regions coming soon</div>
             </div>
           </div>
 

@@ -174,6 +174,38 @@ function GameInstance({ level, router }: { level: number; router: ReturnType<typ
           g.fillRect(11, 15, 4, 5); g.fillRect(18, 15, 4, 5);          // front legs
           g.fillRect(26, 15, 4, 5); g.fillRect(33, 15, 4, 5);          // rear legs
           g.generateTexture(key, 50, 20);
+        } else if (key === 'canarinho_brute') {
+          // Green football bruiser — oversized comic-book build in Brazil kit
+          g.fillStyle(0x15803d); g.fillCircle(25, 10, 9);               // head
+          g.fillStyle(0x052e16); g.fillRect(17, 2, 16, 5);              // hair
+          g.fillStyle(0xffffff); g.fillCircle(21, 9, 2.5); g.fillCircle(29, 9, 2.5);
+          g.fillStyle(0x111111); g.fillCircle(21, 9, 1); g.fillCircle(29, 9, 1);
+          g.fillStyle(0xfacc15); g.fillRect(11, 20, 28, 20);            // yellow jersey
+          g.fillStyle(0x16a34a);
+          g.fillTriangle(25, 22, 36, 30, 25, 38);
+          g.fillTriangle(25, 22, 14, 30, 25, 38);
+          g.fillStyle(0x1d4ed8); g.fillRect(21, 26, 8, 9);              // blue center mark
+          g.fillStyle(0x15803d);                                       // massive arms
+          g.fillCircle(8, 27, 8); g.fillCircle(42, 27, 8);
+          g.fillRect(4, 27, 9, 15); g.fillRect(37, 27, 9, 15);
+          g.fillStyle(0x1d4ed8); g.fillRect(14, 40, 10, 15); g.fillRect(27, 40, 10, 15);
+          g.fillStyle(0xffffff); g.fillRect(12, 54, 13, 4); g.fillRect(26, 54, 13, 4);
+          g.generateTexture(key, 50, 58);
+        } else if (key === 'samba_dancer') {
+          // Carnival dancer — feathered headdress and spinning parade costume
+          const feathers = [0x22c55e, 0xfacc15, 0x2563eb, 0xef4444, 0xec4899];
+          for (let i = 0; i < 5; i++) {
+            g.fillStyle(feathers[i]);
+            g.fillEllipse(10 + i * 7, 8 + Math.abs(2 - i) * 3, 8, 22);
+          }
+          g.fillStyle(0x8b5cf6); g.fillCircle(24, 19, 9);
+          g.fillStyle(0xffffff); g.fillCircle(21, 17, 2); g.fillCircle(27, 17, 2);
+          g.fillStyle(0x111111); g.fillCircle(21, 17, 1); g.fillCircle(27, 17, 1);
+          g.fillStyle(0xfacc15); g.fillEllipse(24, 32, 24, 19);
+          g.fillStyle(0x22c55e); g.fillTriangle(24, 23, 36, 38, 12, 38);
+          g.fillStyle(0x2563eb); g.fillRect(7, 29, 34, 5);
+          g.fillStyle(0xef4444); g.fillRect(14, 41, 6, 11); g.fillRect(28, 41, 6, 11);
+          g.generateTexture(key, 48, 54);
         }
         g.destroy();
       };
@@ -220,14 +252,14 @@ function GameInstance({ level, router }: { level: number; router: ReturnType<typ
         musicNotes: number[];
         musicTempo: number;
         musicMelody?: number[];
-        rhythmStyle?: 'default' | 'cumbia' | 'joropo';
+        rhythmStyle?: 'default' | 'cumbia' | 'joropo' | 'samba';
         mountainProfile: number[];
         portalX: number;
         portalY: number;
         nextLevel: number | null;
-        hazardBehavior: 'dive' | 'charge' | 'carnival' | 'tepui';
+        hazardBehavior: 'dive' | 'charge' | 'carnival' | 'tepui' | 'brazil';
         flag: string;
-        backgroundStyle: 'andes' | 'pyramids' | 'carnival' | 'tepui';
+        backgroundStyle: 'andes' | 'pyramids' | 'carnival' | 'tepui' | 'rio';
         enemy2Key?: string;
         enemy2Color?: number;
       }
@@ -351,7 +383,7 @@ function GameInstance({ level, router }: { level: number; router: ReturnType<typ
           mountainProfile: [280, 240, 310, 260, 290, 240, 270, 300, 250, 280, 310, 260, 290, 270, 290],
           portalX:         4700,
           portalY:         255,
-          nextLevel:       null,
+          nextLevel:       5,
           hazardBehavior:  'tepui',
           flag:            '🇻🇪',
           backgroundStyle: 'tepui',
@@ -372,6 +404,50 @@ function GameInstance({ level, router }: { level: number; router: ReturnType<typ
             {x:3870, y:375, w:100},
             {x:4150, y:300, w:100},
             {x:4430, y:255, w:240},
+          ],
+        },
+        5: {
+          bgColors:        [0x0b7a75, 0x032b45],
+          mountainColor:   0x14532d,
+          platformColor:   0x15803d,
+          platformAccent:  0xfacc15,
+          enemyColor:      0x15803d,
+          enemyKey:        'canarinho_brute',
+          enemy2Key:       'samba_dancer',
+          enemy2Color:     0xfacc15,
+          coinColor:       0xfacc15,
+          title:           'Brasil Futebol — Río de Janeiro',
+          worldWidth:      5200,
+          musicNotes:      [262, 294, 330, 392, 440, 494, 523, 587],
+          musicTempo:      360,
+          musicMelody:     [0, 3, 4, 6, 4, 3, 1, 3],
+          rhythmStyle:     'samba' as const,
+          mountainProfile: [330,280,250,310,270,230,290,255,315,260,300,245,285,270,330],
+          portalX:         5080,
+          portalY:         235,
+          nextLevel:       null,
+          hazardBehavior:  'brazil',
+          flag:            '🇧🇷',
+          backgroundStyle: 'rio',
+          platforms: [
+            {x:100,  y:460, w:150},
+            {x:390,  y:392, w:95},
+            {x:660,  y:322, w:90},
+            {x:940,  y:250, w:100},
+            {x:1240, y:382, w:90},
+            {x:1530, y:310, w:95},
+            {x:1810, y:240, w:90},
+            {x:2110, y:398, w:90},
+            {x:2390, y:326, w:95},
+            {x:2685, y:252, w:90},
+            {x:2980, y:408, w:85},
+            {x:3270, y:334, w:90},
+            {x:3560, y:262, w:90},
+            {x:3860, y:396, w:85},
+            {x:4140, y:318, w:90},
+            {x:4430, y:252, w:90},
+            {x:4720, y:308, w:90},
+            {x:4940, y:235, w:250},
           ],
         },
       };
@@ -481,6 +557,18 @@ function GameInstance({ level, router }: { level: number; router: ReturnType<typ
               // Bandola syncopation on upbeats 1 and 4
               if (s === 1 || s === 4)
                 this.tone(this.notes[this.melody[(Math.floor(this.step / 3) + 3) % this.melody.length]], now, interval * 0.4, 0.06, 'sine');
+            } else if (this.rhythmStyle === 'samba') {
+              // Brazilian samba feel — bright syncopated melody, surdo pulse, shaker texture
+              const s = this.step % 8;
+              this.noise(now, s % 2 === 0 ? 0.08 : 0.05, 0.025);
+              if (s === 0 || s === 3 || s === 6)
+                this.tone(this.notes[0] / 2, now, interval * 1.4, 0.12, 'sine');
+              if (s === 2 || s === 5)
+                this.noise(now, 0.2, 0.05);
+              if (s === 1 || s === 3 || s === 4 || s === 7)
+                this.tone(this.notes[this.melody[this.step % this.melody.length]], now, interval * 0.45, 0.09, 'triangle');
+              if (s === 4)
+                this.tone(this.notes[4], now, interval * 0.6, 0.05, 'square');
             } else {
               this.tone(this.notes[this.melody[this.step % this.melody.length]], now, interval * 0.8);
               if (this.step % 4 === 0 || this.step % 4 === 2)
@@ -779,6 +867,55 @@ function GameInstance({ level, router }: { level: number; router: ReturnType<typ
               const jx = i * 36 + (i % 3) * 12; const jh = 22 + (i * 13 % 18);
               jungle.fillEllipse(jx, this.groundY - jh / 2, 42, jh);
             }
+          } else if (cfg.backgroundStyle === 'rio') {
+            // Rio — football beach, Sugarloaf silhouettes, parade energy
+            const ocean = this.add.graphics().setScrollFactor(0.12);
+            ocean.fillStyle(0x38bdf8, 0.35); ocean.fillRect(0, Math.round(H * 0.56), worldW, H * 0.16);
+            ocean.fillStyle(0xffffff, 0.2);
+            for (let i = 0; i < Math.ceil(worldW / 180); i++)
+              ocean.fillEllipse(i * 180 + 50, Math.round(H * 0.62) + Math.sin(i) * 8, 110, 10);
+
+            const hills = this.add.graphics().setScrollFactor(0.18);
+            for (let i = 0; i < Math.ceil(worldW / 760); i++) {
+              const ox = i * 760;
+              hills.fillStyle(0x064e3b, 0.88);
+              hills.fillEllipse(ox + 170, 360, 280, 260);
+              hills.fillEllipse(ox + 450, 350, 210, 300);
+              hills.fillStyle(0x052e2b, 0.95);
+              hills.fillEllipse(ox + 590, 330, 130, 360);              // Sugarloaf-like peak
+              hills.fillStyle(0xf8fafc, 0.75);
+              hills.fillRect(ox + 443, 136, 5, 54);                    // distant Christ statue
+              hills.fillRect(ox + 424, 152, 42, 5);
+            }
+
+            const beach = this.add.graphics().setScrollFactor(0.38);
+            beach.fillStyle(0xfde68a, 0.82); beach.fillRect(0, Math.round(H * 0.68), worldW, 190);
+            beach.fillStyle(0x16a34a, 0.65);
+            for (let i = 0; i < Math.ceil(worldW / 120); i++) {
+              const x = i * 120 + 30;
+              beach.fillRect(x, this.groundY - 82, 4, 45);
+              beach.fillCircle(x - 10, this.groundY - 87, 14);
+              beach.fillCircle(x + 10, this.groundY - 91, 14);
+            }
+
+            const crowd = this.add.graphics().setScrollFactor(0.62);
+            const shirts = [0xfacc15, 0x22c55e, 0x2563eb, 0xffffff];
+            for (let i = 0; i < Math.ceil(worldW / 30); i++) {
+              const x = i * 30; const h = 42 + (i * 17 % 28);
+              crowd.fillStyle(shirts[i % shirts.length], 0.9);
+              crowd.fillRect(x, this.groundY - h, 20, h + 24);
+              crowd.fillStyle(0x3f1d0b, 0.9);
+              crowd.fillCircle(x + 10, this.groundY - h - 6, 8);
+            }
+
+            const conf = this.add.graphics().setScrollFactor(0.9);
+            const cfColors = [0xfacc15, 0x22c55e, 0x2563eb, 0xffffff, 0xef4444];
+            for (let i = 0; i < 650; i++) {
+              const cx = (i * 1103515245 >>> 0) % worldW;
+              const cy = 20 + ((i * 2654435761 >>> 0) % (this.groundY - 70));
+              conf.fillStyle(cfColors[i % cfColors.length], 0.85);
+              conf.fillRect(cx, cy, i % 2 === 0 ? 6 : 3, i % 2 === 0 ? 3 : 7);
+            }
           }
 
           // Ground
@@ -873,6 +1010,34 @@ function GameInstance({ level, router }: { level: number; router: ReturnType<typ
               e.setBounceX(0);
               e.setData('state', 'patrol');
               e.setData('enemyType', 'caiman');
+            }
+          } else if (cfg.hazardBehavior === 'brazil') {
+            // Football brutes — heavier platform enemies that leap toward the player
+            cfg.platforms.slice(1, -1).forEach((p, idx) => {
+              if (idx % 2 === 0) {
+                const e = this.enemies.create(p.x + p.w / 2, p.y - 36, cfg.enemyKey) as Phaser.Physics.Arcade.Sprite;
+                const body = e.body as Phaser.Physics.Arcade.Body;
+                body.setCollideWorldBounds(true);
+                body.setSize(34, 50);
+                body.setOffset(8, 8);
+                e.setVelocityX(idx % 4 < 2 ? 80 : -80);
+                e.setBounceX(1);
+                e.setData('state', 'patrol');
+                e.setData('enemyType', 'canarinho_brute');
+                e.setData('jumpCooldown', Phaser.Math.Between(35, 115));
+              }
+            });
+            // Samba dancers — fast ground hazards that spin-dash through the crowd line
+            const numDancers = 10;
+            for (let i = 0; i < numDancers; i++) {
+              const x = 520 + i * (cfg.worldWidth / numDancers);
+              const e = this.enemies.create(x, this.groundY - 28, cfg.enemy2Key!) as Phaser.Physics.Arcade.Sprite;
+              (e.body as Phaser.Physics.Arcade.Body).setCollideWorldBounds(true);
+              e.setVelocityX(i % 2 === 0 ? 95 : -95);
+              e.setBounceX(0);
+              e.setData('state', 'patrol');
+              e.setData('enemyType', 'samba_dancer');
+              e.setData('spinTimer', Phaser.Math.Between(45, 120));
             }
           }
 
@@ -1276,6 +1441,74 @@ function GameInstance({ level, router }: { level: number; router: ReturnType<typ
                   if (t <= 0 || eb.blocked.left || eb.blocked.right) {
                     e.setData('state', 'patrol');
                     e.setVelocityX(eb.velocity.x > 0 ? -40 : 40);
+                  }
+                }
+              }
+            } else if (this.cfg.hazardBehavior === 'brazil') {
+              const type = e.getData('enemyType') as string;
+              if (type === 'canarinho_brute') {
+                // ── Football brute: patrols narrow platforms, then jumps hard toward the player ──
+                if (state === 'patrol') {
+                  if (eb.blocked.left)  e.setVelocityX(85);
+                  if (eb.blocked.right) e.setVelocityX(-85);
+                  e.setFlipX(eb.velocity.x < 0);
+                  const cooldown = (e.getData('jumpCooldown') as number) - 1;
+                  e.setData('jumpCooldown', cooldown);
+                  if (cooldown <= 0 && eb.blocked.down && Math.abs(e.x - this.hero.x) < 260 && Math.abs(e.y - this.hero.y) < 115) {
+                    e.setData('state', 'leap');
+                    e.setData('leapTimer', 82);
+                    e.setVelocityX(this.hero.x > e.x ? 255 : -255);
+                    e.setVelocityY(-500);
+                    e.setScale(1.06);
+                  }
+                } else if (state === 'leap') {
+                  e.setFlipX(eb.velocity.x < 0);
+                  const t = (e.getData('leapTimer') as number) - 1;
+                  e.setData('leapTimer', t);
+                  if ((eb.blocked.down && t < 58) || t <= 0 || eb.blocked.left || eb.blocked.right) {
+                    this.cameras.main.shake(70, 0.006);
+                    e.setScale(1);
+                    e.setData('state', 'patrol');
+                    e.setData('jumpCooldown', Phaser.Math.Between(45, 110));
+                    e.setVelocityX(eb.velocity.x > 0 ? -95 : 95);
+                  }
+                }
+              } else if (type === 'samba_dancer') {
+                // ── Carnival dancer: fast patrol → spinning dash with a short telegraph ──
+                if (state === 'patrol') {
+                  if (eb.blocked.left)  e.setVelocityX(95);
+                  if (eb.blocked.right) e.setVelocityX(-95);
+                  e.setFlipX(eb.velocity.x < 0);
+                  e.angle += 4;
+                  const t = (e.getData('spinTimer') as number) - 1;
+                  e.setData('spinTimer', t);
+                  if (t <= 0 && Math.abs(e.x - this.hero.x) < 230 && Math.abs(e.y - this.hero.y) < 70) {
+                    e.setData('state', 'windup');
+                    e.setData('windupTimer', 28);
+                    e.setData('chargeDir', this.hero.x > e.x ? 1 : -1);
+                    e.setVelocityX(0);
+                  }
+                } else if (state === 'windup') {
+                  const t = (e.getData('windupTimer') as number) - 1;
+                  e.setData('windupTimer', t);
+                  e.angle += 18;
+                  e.setAlpha(t % 8 < 4 ? 0.55 : 1);
+                  if (t <= 0) {
+                    e.setAlpha(1);
+                    e.setData('state', 'dash');
+                    e.setData('dashTimer', 80);
+                    e.setVelocityX((e.getData('chargeDir') as number) * 430);
+                  }
+                } else if (state === 'dash') {
+                  e.angle += 24;
+                  e.setFlipX(eb.velocity.x < 0);
+                  const t = (e.getData('dashTimer') as number) - 1;
+                  e.setData('dashTimer', t);
+                  if (t <= 0 || eb.blocked.left || eb.blocked.right) {
+                    e.setAngle(0);
+                    e.setData('state', 'patrol');
+                    e.setData('spinTimer', Phaser.Math.Between(55, 130));
+                    e.setVelocityX(eb.velocity.x > 0 ? -95 : 95);
                   }
                 }
               }
