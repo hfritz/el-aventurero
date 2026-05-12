@@ -206,6 +206,36 @@ function GameInstance({ level, router }: { level: number; router: ReturnType<typ
           g.fillStyle(0x2563eb); g.fillRect(7, 29, 34, 5);
           g.fillStyle(0xef4444); g.fillRect(14, 41, 6, 11); g.fillRect(28, 41, 6, 11);
           g.generateTexture(key, 48, 54);
+        } else if (key === 'sand_fox') {
+          // Atacama fox — low, fast silhouette with pale desert coat
+          g.fillStyle(color); g.fillEllipse(20, 20, 30, 16);
+          g.fillStyle(0xfed7aa); g.fillEllipse(30, 15, 16, 12);
+          g.fillStyle(color); g.fillTriangle(24, 9, 28, 1, 31, 11); g.fillTriangle(33, 9, 38, 1, 38, 12);
+          g.fillStyle(0xffffff); g.fillCircle(32, 14, 2.5);
+          g.fillStyle(0x111111); g.fillCircle(33, 14, 1.2); g.fillCircle(39, 17, 2);
+          g.fillStyle(0x92400e); g.fillTriangle(6, 15, 0, 8, 3, 24);
+          g.fillStyle(0x7c2d12); g.fillRect(9, 26, 5, 8); g.fillRect(25, 26, 5, 8);
+          g.generateTexture(key, 44, 36);
+        } else if (key === 'cactus_guardian') {
+          // Cactus guardian — squat desert sentinel with timed spikes
+          g.fillStyle(color); g.fillRect(15, 8, 18, 36); g.fillCircle(24, 8, 9);
+          g.fillRect(6, 22, 12, 8); g.fillCircle(6, 26, 6);
+          g.fillRect(31, 18, 12, 8); g.fillCircle(43, 22, 6);
+          g.fillStyle(0xd9f99d); g.fillRect(20, 13, 2, 5); g.fillRect(28, 20, 2, 5);
+          g.fillStyle(0xffffff); g.fillCircle(20, 12, 2); g.fillCircle(28, 12, 2);
+          g.fillStyle(0x111111); g.fillCircle(20, 12, 1); g.fillCircle(28, 12, 1);
+          g.fillStyle(0xfef3c7);
+          g.fillTriangle(24, 0, 21, 8, 27, 8);
+          g.fillTriangle(2, 26, 9, 23, 9, 29);
+          g.fillTriangle(46, 22, 39, 19, 39, 25);
+          g.generateTexture(key, 48, 48);
+        } else if (key === 'meteor_fragment') {
+          // Meteor shard — falling volcanic rock with a hot core
+          g.fillStyle(0xf97316, 0.45); g.fillTriangle(18, 0, 7, 20, 29, 20);
+          g.fillStyle(0x7f1d1d); g.fillCircle(18, 19, 13);
+          g.fillStyle(0xfacc15); g.fillCircle(15, 16, 5);
+          g.fillStyle(0xffffff, 0.65); g.fillCircle(13, 14, 2);
+          g.generateTexture(key, 36, 36);
         }
         g.destroy();
       };
@@ -252,14 +282,14 @@ function GameInstance({ level, router }: { level: number; router: ReturnType<typ
         musicNotes: number[];
         musicTempo: number;
         musicMelody?: number[];
-        rhythmStyle?: 'default' | 'cumbia' | 'joropo' | 'samba';
+        rhythmStyle?: 'default' | 'cumbia' | 'joropo' | 'samba' | 'atacama';
         mountainProfile: number[];
         portalX: number;
         portalY: number;
         nextLevel: number | null;
-        hazardBehavior: 'dive' | 'charge' | 'carnival' | 'tepui' | 'brazil';
+        hazardBehavior: 'dive' | 'charge' | 'carnival' | 'tepui' | 'brazil' | 'atacama';
         flag: string;
-        backgroundStyle: 'andes' | 'pyramids' | 'carnival' | 'tepui' | 'rio';
+        backgroundStyle: 'andes' | 'pyramids' | 'carnival' | 'tepui' | 'rio' | 'atacama';
         enemy2Key?: string;
         enemy2Color?: number;
       }
@@ -425,7 +455,7 @@ function GameInstance({ level, router }: { level: number; router: ReturnType<typ
           mountainProfile: [330,280,250,310,270,230,290,255,315,260,300,245,285,270,330],
           portalX:         5080,
           portalY:         235,
-          nextLevel:       null,
+          nextLevel:       6,
           hazardBehavior:  'brazil',
           flag:            '🇧🇷',
           backgroundStyle: 'rio',
@@ -448,6 +478,49 @@ function GameInstance({ level, router }: { level: number; router: ReturnType<typ
             {x:4430, y:252, w:90},
             {x:4720, y:308, w:90},
             {x:4940, y:235, w:250},
+          ],
+        },
+        6: {
+          bgColors:        [0x170f32, 0x5b2a12],
+          mountainColor:   0x7c2d12,
+          platformColor:   0xa16207,
+          platformAccent:  0xfed7aa,
+          enemyColor:      0xd97706,
+          enemyKey:        'sand_fox',
+          enemy2Key:       'cactus_guardian',
+          enemy2Color:     0x3f7f2d,
+          coinColor:       0xfef3c7,
+          title:           'El Atacama — Valle de la Luna',
+          worldWidth:      5400,
+          musicNotes:      [196, 220, 247, 294, 330, 392, 440, 494],
+          musicTempo:      240,
+          musicMelody:     [0, 3, 5, 7, 5, 3, 1, 4],
+          rhythmStyle:     'atacama' as const,
+          mountainProfile: [360,320,250,290,210,270,330,260,230,315,285,240,300,260,350],
+          portalX:         5280,
+          portalY:         250,
+          nextLevel:       null,
+          hazardBehavior:  'atacama',
+          flag:            '🇨🇱',
+          backgroundStyle: 'atacama',
+          platforms: [
+            {x:100,  y:460, w:150},
+            {x:390,  y:385, w:95},
+            {x:680,  y:315, w:90},
+            {x:980,  y:245, w:90},
+            {x:1280, y:360, w:85},
+            {x:1580, y:290, w:90},
+            {x:1880, y:220, w:85},
+            {x:2200, y:385, w:90},
+            {x:2510, y:315, w:85},
+            {x:2830, y:242, w:90},
+            {x:3160, y:395, w:85},
+            {x:3480, y:325, w:90},
+            {x:3800, y:250, w:85},
+            {x:4120, y:380, w:90},
+            {x:4440, y:305, w:85},
+            {x:4760, y:238, w:90},
+            {x:5080, y:250, w:250},
           ],
         },
       };
@@ -569,6 +642,17 @@ function GameInstance({ level, router }: { level: number; router: ReturnType<typ
                 this.tone(this.notes[this.melody[this.step % this.melody.length]], now, interval * 0.45, 0.09, 'triangle');
               if (s === 4)
                 this.tone(this.notes[4], now, interval * 0.6, 0.05, 'square');
+            } else if (this.rhythmStyle === 'atacama') {
+              // Atacama night — sparse pulse with observatory-like star tones
+              const s = this.step % 8;
+              if (s === 0 || s === 4)
+                this.tone(this.notes[0] / 2, now, interval * 1.7, 0.08, 'sine');
+              if (s === 1 || s === 5)
+                this.tone(this.notes[this.melody[this.step % this.melody.length]], now, interval * 0.55, 0.07, 'triangle');
+              if (s === 3 || s === 7)
+                this.tone(this.notes[7], now, interval * 0.25, 0.04, 'sine');
+              if (s === 2)
+                this.noise(now, 0.06, 0.025);
             } else {
               this.tone(this.notes[this.melody[this.step % this.melody.length]], now, interval * 0.8);
               if (this.step % 4 === 0 || this.step % 4 === 2)
@@ -598,6 +682,7 @@ function GameInstance({ level, router }: { level: number; router: ReturnType<typ
         hero!: Phaser.Physics.Arcade.Sprite;
         platforms!: Phaser.Physics.Arcade.StaticGroup;
         enemies!: Phaser.Physics.Arcade.Group;
+        meteors!: Phaser.Physics.Arcade.Group;
         coins!: Phaser.Physics.Arcade.StaticGroup;
         audio!: AudioEngine;
 
@@ -611,6 +696,7 @@ function GameInstance({ level, router }: { level: number; router: ReturnType<typ
         introActive = false;
         portalX = 0;
         portalY = 0;
+        meteorTimer = 0;
 
         scoreText!: Phaser.GameObjects.Text;
         heartsText!: Phaser.GameObjects.Text;
@@ -623,6 +709,7 @@ function GameInstance({ level, router }: { level: number; router: ReturnType<typ
           createCharTexture(this);
           createEnemyTexture(this, this.cfg.enemyKey, this.cfg.enemyColor);
           if (this.cfg.enemy2Key) createEnemyTexture(this, this.cfg.enemy2Key, this.cfg.enemy2Color ?? 0);
+          if (this.cfg.hazardBehavior === 'atacama') createEnemyTexture(this, 'meteor_fragment', 0x7f1d1d);
           createPortalTexture(this);
 
           const pg = this.make.graphics({ x: 0, y: 0 });
@@ -653,7 +740,7 @@ function GameInstance({ level, router }: { level: number; router: ReturnType<typ
 
           this.score = 0; this.lives = 3;
           this.invincible = false; this.invincibleTimer = 0;
-          this.ended = false; this.coyoteFrames = 0; this.wasOnGround = false;
+          this.ended = false; this.coyoteFrames = 0; this.wasOnGround = false; this.meteorTimer = 45;
 
           this.cameras.main.setBounds(0, 0, worldW, H);
           this.physics.world.setBounds(0, 0, worldW, H + 200);
@@ -916,6 +1003,56 @@ function GameInstance({ level, router }: { level: number; router: ReturnType<typ
               conf.fillStyle(cfColors[i % cfColors.length], 0.85);
               conf.fillRect(cx, cy, i % 2 === 0 ? 6 : 3, i % 2 === 0 ? 3 : 7);
             }
+          } else if (cfg.backgroundStyle === 'atacama') {
+            // Atacama — salt flats, volcanoes, observatories, and an enormous moon
+            const moon = this.add.graphics().setScrollFactor(0.04);
+            moon.fillStyle(0xfef3c7, 0.92); moon.fillCircle(180, 86, 54);
+            moon.fillStyle(0xd6c7a0, 0.22);
+            moon.fillCircle(162, 72, 9); moon.fillCircle(194, 96, 12);
+
+            const starscape = this.add.graphics().setScrollFactor(0.06);
+            for (let i = 0; i < 180; i++) {
+              starscape.fillStyle(i % 9 === 0 ? 0xfef3c7 : 0xffffff, i % 9 === 0 ? 0.9 : 0.45);
+              const x = (i * 48271) % worldW;
+              const y = 18 + ((i * 69621) % 250);
+              if (i % 9 === 0) {
+                starscape.fillRect(x - 3, y, 7, 1); starscape.fillRect(x, y - 3, 1, 7);
+              } else {
+                starscape.fillRect(x, y, 1, 1);
+              }
+            }
+
+            const volcanoes = this.add.graphics().setScrollFactor(0.18);
+            for (let i = 0; i < Math.ceil(worldW / 620); i++) {
+              const ox = i * 620;
+              volcanoes.fillStyle(0x431407, 0.88);
+              volcanoes.fillTriangle(ox + 20, this.groundY, ox + 210, 185, ox + 400, this.groundY);
+              volcanoes.fillStyle(0x7c2d12, 0.65);
+              volcanoes.fillTriangle(ox + 210, 185, ox + 400, this.groundY, ox + 260, this.groundY);
+              volcanoes.fillStyle(0xfef3c7, 0.75);
+              volcanoes.fillTriangle(ox + 184, 218, ox + 210, 185, ox + 238, 218);
+            }
+
+            const observatories = this.add.graphics().setScrollFactor(0.32);
+            for (let i = 0; i < Math.ceil(worldW / 980); i++) {
+              const ox = 420 + i * 980;
+              observatories.fillStyle(0xe5e7eb, 0.8);
+              observatories.fillRect(ox, this.groundY - 112, 78, 56);
+              observatories.fillEllipse(ox + 39, this.groundY - 112, 78, 42);
+              observatories.fillStyle(0x94a3b8, 0.85);
+              observatories.fillRect(ox + 56, this.groundY - 146, 54, 12);
+              observatories.fillStyle(0x111827, 0.4);
+              observatories.fillRect(ox + 20, this.groundY - 94, 15, 38);
+            }
+
+            const salt = this.add.graphics().setScrollFactor(0.55);
+            salt.fillStyle(0xfef3c7, 0.56); salt.fillRect(0, this.groundY - 38, worldW, 96);
+            salt.lineStyle(1, 0xffffff, 0.24);
+            for (let i = 0; i < Math.ceil(worldW / 80); i++) {
+              const x = i * 80;
+              salt.lineBetween(x, this.groundY - 30, x + 48, this.groundY + 18);
+              salt.lineBetween(x + 48, this.groundY + 18, x + 96, this.groundY - 30);
+            }
           }
 
           // Ground
@@ -937,6 +1074,7 @@ function GameInstance({ level, router }: { level: number; router: ReturnType<typ
 
           // Enemies
           this.enemies = this.physics.add.group();
+          this.meteors = this.physics.add.group();
           if (cfg.hazardBehavior === 'dive') {
             // Condors — airborne, no gravity, distributed across the world
             const numCondors = 8;
@@ -1039,6 +1177,33 @@ function GameInstance({ level, router }: { level: number; router: ReturnType<typ
               e.setData('enemyType', 'samba_dancer');
               e.setData('spinTimer', Phaser.Math.Between(45, 120));
             }
+          } else if (cfg.hazardBehavior === 'atacama') {
+            // Sand foxes — fast desert patrols with a short pause before sprinting
+            cfg.platforms.slice(1, -1).forEach((p, idx) => {
+              if (idx % 2 === 0) {
+                const e = this.enemies.create(p.x + p.w / 2, p.y - 24, cfg.enemyKey) as Phaser.Physics.Arcade.Sprite;
+                (e.body as Phaser.Physics.Arcade.Body).setCollideWorldBounds(true);
+                e.setVelocityX(idx % 4 < 2 ? 105 : -105);
+                e.setBounceX(1);
+                e.setData('state', 'patrol');
+                e.setData('enemyType', 'sand_fox');
+              }
+            });
+            // Cactus guardians — timed spike hazards on alternating platforms
+            cfg.platforms.slice(2, -1).forEach((p, idx) => {
+              if (idx % 3 === 1) {
+                const e = this.enemies.create(p.x + p.w / 2, p.y - 28, cfg.enemy2Key!) as Phaser.Physics.Arcade.Sprite;
+                const body = e.body as Phaser.Physics.Arcade.Body;
+                body.setCollideWorldBounds(true);
+                body.setSize(34, 42);
+                body.setOffset(7, 6);
+                e.setVelocityX(0);
+                e.setData('state', 'closed');
+                e.setData('enemyType', 'cactus_guardian');
+                e.setData('spikeTimer', Phaser.Math.Between(40, 120));
+                e.setData('spiked', false);
+              }
+            });
           }
 
           // Portal at end
@@ -1059,11 +1224,14 @@ function GameInstance({ level, router }: { level: number; router: ReturnType<typ
           this.hero = this.physics.add.sprite(80, 400, "hero");
           this.hero.setBounce(0.05);
           this.hero.setCollideWorldBounds(true);
-          (this.hero.body as Phaser.Physics.Arcade.Body).setGravityY(200);
+          (this.hero.body as Phaser.Physics.Arcade.Body).setGravityY(cfg.hazardBehavior === 'atacama' ? -120 : 200);
 
           // Colliders
           this.physics.add.collider(this.hero, this.platforms);
           this.physics.add.collider(this.enemies, this.platforms);
+          this.physics.add.collider(this.meteors, this.platforms, (meteorObj) => {
+            (meteorObj as Phaser.GameObjects.GameObject).destroy();
+          });
 
           // Coin collect
           this.physics.add.overlap(this.hero, this.coins, (_h, coin) => {
@@ -1078,6 +1246,10 @@ function GameInstance({ level, router }: { level: number; router: ReturnType<typ
             const enemy = enemyObj as Phaser.Physics.Arcade.Sprite;
             const hBody = this.hero.body as Phaser.Physics.Arcade.Body;
             const eBody = enemy.body as Phaser.Physics.Arcade.Body;
+            if (enemy.getData('enemyType') === 'cactus_guardian' && enemy.getData('spiked')) {
+              this.takeDamage();
+              return;
+            }
             // Stomp: hero falling AND hero's bottom is above enemy center
             if (hBody.velocity.y > 40 && hBody.bottom < eBody.center.y + 12) {
               this.stompEnemy(enemy);
@@ -1086,6 +1258,10 @@ function GameInstance({ level, router }: { level: number; router: ReturnType<typ
             }
           });
 
+          this.physics.add.overlap(this.hero, this.meteors, (_h, meteorObj) => {
+            (meteorObj as Phaser.GameObjects.GameObject).destroy();
+            this.takeDamage();
+          });
 
           // Camera
           this.cameras.main.startFollow(this.hero, true, 0.08, 0.08);
@@ -1205,6 +1381,30 @@ function GameInstance({ level, router }: { level: number; router: ReturnType<typ
           }
         }
 
+        spawnMeteor() {
+          if (this.ended || this.introActive || this.cfg.hazardBehavior !== 'atacama') return;
+          const cam = this.cameras.main;
+          const minX = Math.max(160, cam.scrollX + 260);
+          const maxX = Math.min(this.cfg.worldWidth - 160, cam.scrollX + this.scale.width - 80);
+          const x = Phaser.Math.Between(Math.floor(minX), Math.floor(Math.max(minX + 20, maxX)));
+          const warning = this.add.text(x, 42, "✦", {
+            fontSize: "26px", color: "#fef3c7",
+            stroke: "#7c2d12", strokeThickness: 3,
+          }).setOrigin(0.5).setDepth(6);
+          this.tweens.add({ targets: warning, alpha: { from: 0.25, to: 1 }, scale: { from: 0.8, to: 1.25 }, duration: 120, yoyo: true, repeat: 4 });
+          this.time.delayedCall(620, () => {
+            warning.destroy();
+            if (this.ended || this.introActive) return;
+            const meteor = this.meteors.create(x, -20, 'meteor_fragment') as Phaser.Physics.Arcade.Sprite;
+            const body = meteor.body as Phaser.Physics.Arcade.Body;
+            body.setAllowGravity(false);
+            body.setSize(24, 24);
+            body.setOffset(6, 8);
+            meteor.setVelocity(Phaser.Math.Between(-35, 35), Phaser.Math.Between(360, 440));
+            meteor.setAngularVelocity(Phaser.Math.Between(-220, 220));
+          });
+        }
+
         showGameOver() {
           this.ended = true;
           this.audio?.stop();
@@ -1279,9 +1479,20 @@ function GameInstance({ level, router }: { level: number; router: ReturnType<typ
           else            { this.hero.setVelocityX(0); }
 
           if (jump && (onGround || this.coyoteFrames > 0)) {
-            this.hero.setVelocityY(-480);
+            this.hero.setVelocityY(this.cfg.hazardBehavior === 'atacama' ? -430 : -480);
             this.coyoteFrames = 0;
             this.audio?.sfx("jump");
+          }
+
+          if (this.cfg.hazardBehavior === 'atacama') {
+            this.meteorTimer--;
+            if (this.meteorTimer <= 0) {
+              this.spawnMeteor();
+              this.meteorTimer = Phaser.Math.Between(75, 135);
+            }
+            (this.meteors.getChildren() as Phaser.Physics.Arcade.Sprite[]).forEach(m => {
+              if (m.y > this.groundY + 70 || m.x < this.cameras.main.scrollX - 120) m.destroy();
+            });
           }
 
           // Enemy behavior
@@ -1509,6 +1720,47 @@ function GameInstance({ level, router }: { level: number; router: ReturnType<typ
                     e.setData('state', 'patrol');
                     e.setData('spinTimer', Phaser.Math.Between(55, 130));
                     e.setVelocityX(eb.velocity.x > 0 ? -95 : 95);
+                  }
+                }
+              }
+            } else if (this.cfg.hazardBehavior === 'atacama') {
+              const type = e.getData('enemyType') as string;
+              if (type === 'sand_fox') {
+                // ── Sand fox: patrol until player is close, then chase ──
+                const dx = this.hero.x - e.x;
+                const dy = Math.abs(this.hero.y - e.y);
+                const inRange = Math.abs(dx) < 320 && dy < 80;
+                if (inRange) {
+                  // Chase the player
+                  const chaseSpeed = 170;
+                  e.setVelocityX(dx > 0 ? chaseSpeed : -chaseSpeed);
+                } else {
+                  // Patrol: bounce off walls and platform edges
+                  if (eb.blocked.left)  e.setVelocityX(105);
+                  if (eb.blocked.right) e.setVelocityX(-105);
+                  if (!eb.blocked.down) e.setVelocityX(-(eb.velocity.x) || 105);
+                }
+                e.setFlipX(eb.velocity.x < 0);
+              } else if (type === 'cactus_guardian') {
+                // ── Cactus guardian: closed → spikes out → vulnerable again ──
+                const t = (e.getData('spikeTimer') as number) - 1;
+                e.setData('spikeTimer', t);
+                if (state === 'closed') {
+                  e.setAlpha(0.82);
+                  e.setScale(1);
+                  if (t <= 0) {
+                    e.setData('state', 'spiked');
+                    e.setData('spiked', true);
+                    e.setData('spikeTimer', 68);
+                    e.setAlpha(1);
+                    e.setScale(1.12);
+                  }
+                } else if (state === 'spiked') {
+                  if (t <= 0) {
+                    e.setData('state', 'closed');
+                    e.setData('spiked', false);
+                    e.setData('spikeTimer', Phaser.Math.Between(80, 145));
+                    e.setScale(1);
                   }
                 }
               }
