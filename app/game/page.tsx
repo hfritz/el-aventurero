@@ -236,6 +236,82 @@ function GameInstance({ level, router }: { level: number; router: ReturnType<typ
           g.fillStyle(0xfacc15); g.fillCircle(15, 16, 5);
           g.fillStyle(0xffffff, 0.65); g.fillCircle(13, 14, 2);
           g.generateTexture(key, 36, 36);
+        } else if (key === 'ice_spirit') {
+          // Ice spirit — translucent glacier wisp with a frosty face
+          g.fillStyle(0xbfdbfe, 0.36); g.fillCircle(24, 24, 22);
+          g.fillStyle(0xe0f2fe, 0.9); g.fillCircle(24, 19, 12);
+          g.fillStyle(0x93c5fd, 0.72);
+          g.fillTriangle(13, 30, 19, 51, 25, 30);
+          g.fillTriangle(23, 30, 29, 54, 35, 30);
+          g.fillStyle(0xffffff); g.fillCircle(20, 17, 2.5); g.fillCircle(28, 17, 2.5);
+          g.fillStyle(0x1e3a8a); g.fillCircle(20, 17, 1.2); g.fillCircle(28, 17, 1.2);
+          g.lineStyle(2, 0xeff6ff, 0.8); g.lineBetween(15, 8, 8, 1); g.lineBetween(33, 8, 40, 1);
+          g.generateTexture(key, 48, 56);
+        } else if (key === 'gaucho_rider') {
+          // Gaucho rider — compact horse-and-rider silhouette with a lasso
+          g.fillStyle(0x7c2d12); g.fillEllipse(24, 29, 38, 16);
+          g.fillStyle(0x451a03); g.fillRect(8, 33, 6, 13); g.fillRect(31, 33, 6, 13);
+          g.fillStyle(0x111827); g.fillRect(22, 14, 9, 16);
+          g.fillStyle(0xfed7aa); g.fillCircle(26, 10, 6);
+          g.fillStyle(0x1f2937); g.fillTriangle(13, 7, 26, 1, 39, 7); g.fillRect(21, 2, 10, 4);
+          g.lineStyle(2, 0xfef3c7, 0.9); g.strokeCircle(42, 11, 7);
+          g.fillStyle(0xfef3c7); g.fillRect(17, 21, 18, 3);
+          g.generateTexture(key, 52, 48);
+        } else if (key === 'candombe_drummer') {
+          // Candombe drummer — street parade percussionist with bright barrel drum
+          g.fillStyle(0x0f172a); g.fillRect(16, 16, 16, 22);
+          g.fillStyle(0xfed7aa); g.fillCircle(24, 10, 7);
+          g.fillStyle(0x1d4ed8); g.fillRect(12, 18, 24, 12);
+          g.fillStyle(0xffffff); g.fillRect(12, 30, 24, 5);
+          g.fillStyle(0xef4444); g.fillEllipse(24, 35, 26, 17);
+          g.fillStyle(0xfbbf24); g.fillEllipse(24, 30, 24, 8);
+          g.lineStyle(2, 0xfef3c7, 1); g.lineBetween(13, 14, 6, 26); g.lineBetween(35, 14, 42, 26);
+          g.fillStyle(0x111827); g.fillRect(16, 38, 6, 12); g.fillRect(27, 38, 6, 12);
+          g.generateTexture(key, 48, 52);
+        } else if (key === 'football_defender') {
+          // Uruguay football defender — sky-blue kit and sliding tackle shape
+          g.fillStyle(0xfed7aa); g.fillCircle(20, 8, 7);
+          g.fillStyle(0x0f172a); g.fillRect(13, 2, 14, 4);
+          g.fillStyle(0x38bdf8); g.fillRect(8, 16, 24, 18);
+          g.fillStyle(0xffffff); g.fillRect(19, 18, 3, 12);
+          g.fillStyle(0x111827); g.fillRect(12, 34, 9, 12); g.fillRect(22, 35, 19, 7);
+          g.fillStyle(0xffffff); g.fillRect(38, 37, 7, 4);
+          g.fillStyle(0x38bdf8); g.fillRect(2, 22, 10, 5); g.fillRect(31, 22, 12, 5);
+          g.generateTexture(key, 48, 48);
+        } else if (key === 'rambla_seagull') {
+          // Rambla seagull — fast flying enemy that cuts across upper routes
+          g.fillStyle(0xffffff); g.fillEllipse(24, 19, 22, 12);
+          g.fillStyle(0xe0f2fe); g.fillTriangle(18, 17, 0, 6, 7, 24);
+          g.fillTriangle(30, 17, 48, 6, 41, 24);
+          g.fillStyle(0xfef08a); g.fillTriangle(34, 18, 45, 15, 35, 22);
+          g.fillStyle(0x111827); g.fillCircle(29, 15, 2);
+          g.fillStyle(0xf97316); g.fillRect(18, 25, 4, 8); g.fillRect(27, 25, 4, 8);
+          g.generateTexture(key, 48, 34);
+        } else if (key === 'armadillo_roller') {
+          // Armadillo roller — armored Chaco enemy curled into a fast ball
+          g.fillStyle(0x92400e); g.fillCircle(24, 24, 20);
+          g.fillStyle(0xf59e0b, 0.85);
+          for (let i = 0; i < 5; i++) g.fillRect(8 + i * 7, 8, 4, 32);
+          g.fillStyle(0x451a03); g.fillCircle(18, 20, 4); g.fillCircle(31, 28, 3);
+          g.fillStyle(0xfef3c7); g.fillTriangle(6, 15, 0, 9, 8, 23);
+          g.generateTexture(key, 48, 48);
+        } else if (key === 'dust_devil') {
+          // Dust devil — spinning Chaco wind hazard
+          g.fillStyle(0xfbbf24, 0.35); g.fillEllipse(24, 11, 34, 13);
+          g.fillStyle(0xf97316, 0.48); g.fillEllipse(24, 24, 28, 18);
+          g.fillStyle(0x7c2d12, 0.6); g.fillEllipse(24, 39, 18, 14);
+          g.lineStyle(3, 0xfef3c7, 0.75);
+          g.strokeEllipse(24, 14, 40, 10); g.strokeEllipse(24, 29, 32, 11); g.strokeEllipse(24, 43, 20, 8);
+          g.generateTexture(key, 48, 52);
+        } else if (key === 'chaco_spearman') {
+          // Chaco spearman — patient ground enemy with a sudden forward thrust
+          g.fillStyle(0xfed7aa); g.fillCircle(24, 9, 6);
+          g.fillStyle(0x451a03); g.fillRect(18, 15, 12, 22);
+          g.fillStyle(0xfacc15); g.fillTriangle(24, 17, 34, 30, 14, 30);
+          g.fillStyle(0x111827); g.fillRect(17, 37, 6, 11); g.fillRect(26, 37, 6, 11);
+          g.lineStyle(3, 0xfef3c7, 1); g.lineBetween(5, 18, 45, 18);
+          g.fillStyle(0xe5e7eb); g.fillTriangle(45, 18, 36, 13, 36, 23);
+          g.generateTexture(key, 50, 50);
         }
         g.destroy();
       };
@@ -267,7 +343,13 @@ function GameInstance({ level, router }: { level: number; router: ReturnType<typ
       };
 
       // ─── LEVEL CONFIGS ────────────────────────────────────────────────
-      type PlatformDef = { x: number; y: number; w: number };
+      type PlatformDef = {
+        x: number;
+        y: number;
+        w: number;
+        slope?: -1 | 1;
+        moving?: { range: number; speed: number };
+      };
       interface LevelConfig {
         bgColors: [number, number];
         mountainColor: number;
@@ -282,14 +364,14 @@ function GameInstance({ level, router }: { level: number; router: ReturnType<typ
         musicNotes: number[];
         musicTempo: number;
         musicMelody?: number[];
-        rhythmStyle?: 'default' | 'cumbia' | 'joropo' | 'samba' | 'atacama';
+        rhythmStyle?: 'default' | 'cumbia' | 'joropo' | 'samba' | 'atacama' | 'patagonia' | 'uruguay' | 'paraguay';
         mountainProfile: number[];
         portalX: number;
         portalY: number;
         nextLevel: number | null;
-        hazardBehavior: 'dive' | 'charge' | 'carnival' | 'tepui' | 'brazil' | 'atacama';
+        hazardBehavior: 'dive' | 'charge' | 'carnival' | 'tepui' | 'brazil' | 'atacama' | 'patagonia' | 'uruguay' | 'paraguay';
         flag: string;
-        backgroundStyle: 'andes' | 'pyramids' | 'carnival' | 'tepui' | 'rio' | 'atacama';
+        backgroundStyle: 'andes' | 'pyramids' | 'carnival' | 'tepui' | 'rio' | 'atacama' | 'patagonia' | 'uruguay' | 'paraguay';
         enemy2Key?: string;
         enemy2Color?: number;
       }
@@ -499,7 +581,7 @@ function GameInstance({ level, router }: { level: number; router: ReturnType<typ
           mountainProfile: [360,320,250,290,210,270,330,260,230,315,285,240,300,260,350],
           portalX:         5280,
           portalY:         250,
-          nextLevel:       null,
+          nextLevel:       7,
           hazardBehavior:  'atacama',
           flag:            '🇨🇱',
           backgroundStyle: 'atacama',
@@ -521,6 +603,135 @@ function GameInstance({ level, router }: { level: number; router: ReturnType<typ
             {x:4440, y:305, w:85},
             {x:4760, y:238, w:90},
             {x:5080, y:250, w:250},
+          ],
+        },
+        7: {
+          bgColors:        [0x082f49, 0x020617],
+          mountainColor:   0x1e3a8a,
+          platformColor:   0x60a5fa,
+          platformAccent:  0xe0f2fe,
+          enemyColor:      0xbfdbfe,
+          enemyKey:        'ice_spirit',
+          enemy2Key:       'gaucho_rider',
+          enemy2Color:     0x7c2d12,
+          coinColor:       0xe0f2fe,
+          title:           'Patagonia — Fin del Mundo',
+          worldWidth:      5600,
+          musicNotes:      [196, 247, 294, 330, 392, 494, 587, 659],
+          musicTempo:      260,
+          musicMelody:     [0, 2, 4, 6, 5, 3, 1, 4],
+          rhythmStyle:     'patagonia' as const,
+          mountainProfile: [360,300,250,190,260,310,230,175,250,330,280,210,300,240,350],
+          portalX:         5480,
+          portalY:         235,
+          nextLevel:       8,
+          hazardBehavior:  'patagonia',
+          flag:            '🇦🇷',
+          backgroundStyle: 'patagonia',
+          platforms: [
+            {x:100,  y:460, w:150},
+            {x:410,  y:390, w:90},
+            {x:710,  y:320, w:85},
+            {x:1010, y:250, w:90},
+            {x:1330, y:370, w:85},
+            {x:1640, y:300, w:90},
+            {x:1960, y:230, w:85},
+            {x:2290, y:382, w:90},
+            {x:2610, y:310, w:85},
+            {x:2940, y:238, w:85},
+            {x:3270, y:395, w:90},
+            {x:3590, y:322, w:85},
+            {x:3920, y:248, w:90},
+            {x:4250, y:384, w:85},
+            {x:4570, y:312, w:90},
+            {x:4900, y:240, w:85},
+            {x:5220, y:235, w:250},
+          ],
+        },
+        8: {
+          bgColors:        [0x075985, 0x0f172a],
+          mountainColor:   0x164e63,
+          platformColor:   0x0ea5e9,
+          platformAccent:  0xffffff,
+          enemyColor:      0x38bdf8,
+          enemyKey:        'candombe_drummer',
+          enemy2Key:       'football_defender',
+          enemy2Color:     0x38bdf8,
+          coinColor:       0xfef08a,
+          title:           'Uruguay — Montevideo Rambla',
+          worldWidth:      5600,
+          musicNotes:      [220, 262, 294, 330, 392, 440, 523, 587],
+          musicTempo:      260,
+          musicMelody:     [0, 2, 3, 5, 3, 6, 4, 2],
+          rhythmStyle:     'uruguay' as const,
+          mountainProfile: [370,340,310,330,300,285,320,300,345,315,290,325,305,335,360],
+          portalX:         5480,
+          portalY:         252,
+          nextLevel:       9,
+          hazardBehavior:  'uruguay',
+          flag:            '🇺🇾',
+          backgroundStyle: 'uruguay',
+          platforms: [
+            {x:100,  y:460, w:150},
+            {x:405,  y:398, w:72},
+            {x:700,  y:328, w:64, moving: { range: 76, speed: 0.0022 }},
+            {x:1020, y:266, w:64},
+            {x:1335, y:386, w:64, moving: { range: 82, speed: 0.002 }},
+            {x:1655, y:318, w:64},
+            {x:1985, y:256, w:64, moving: { range: 72, speed: 0.0023 }},
+            {x:2320, y:402, w:64},
+            {x:2645, y:332, w:64, moving: { range: 86, speed: 0.002 }},
+            {x:2985, y:268, w:64},
+            {x:3325, y:395, w:64, moving: { range: 78, speed: 0.0022 }},
+            {x:3645, y:326, w:64},
+            {x:3985, y:262, w:64, moving: { range: 84, speed: 0.002 }},
+            {x:4325, y:388, w:64},
+            {x:4645, y:316, w:64, moving: { range: 72, speed: 0.0023 }},
+            {x:4985, y:250, w:64},
+            {x:5220, y:252, w:250},
+          ],
+        },
+        9: {
+          bgColors:        [0x431407, 0x111827],
+          mountainColor:   0x7c2d12,
+          platformColor:   0x9a3412,
+          platformAccent:  0xfacc15,
+          enemyColor:      0xf59e0b,
+          enemyKey:        'armadillo_roller',
+          enemy2Key:       'dust_devil',
+          enemy2Color:     0xf97316,
+          coinColor:       0xfef3c7,
+          title:           'Paraguay — Gran Chaco',
+          worldWidth:      5800,
+          musicNotes:      [196, 247, 294, 330, 370, 440, 494, 587],
+          musicTempo:      230,
+          musicMelody:     [0, 3, 5, 4, 2, 6, 3, 1],
+          rhythmStyle:     'paraguay' as const,
+          mountainProfile: [380,340,300,355,320,285,335,300,370,315,290,345,310,360,385],
+          portalX:         5680,
+          portalY:         246,
+          nextLevel:       null,
+          hazardBehavior:  'paraguay',
+          flag:            '🇵🇾',
+          backgroundStyle: 'paraguay',
+          platforms: [
+            {x:100,  y:460, w:145},
+            {x:420,  y:385, w:80, slope: 1},
+            {x:750,  y:315, w:76, slope: -1},
+            {x:1080, y:244, w:80, slope: 1},
+            {x:1420, y:394, w:76, slope: -1},
+            {x:1750, y:322, w:80, slope: 1},
+            {x:2090, y:250, w:76, slope: -1},
+            {x:2440, y:404, w:80, slope: 1},
+            {x:2780, y:332, w:76, slope: -1},
+            {x:3130, y:260, w:80, slope: 1},
+            {x:3480, y:408, w:76, slope: -1},
+            {x:3820, y:336, w:80, slope: 1},
+            {x:4170, y:264, w:76, slope: -1},
+            {x:4520, y:398, w:80, slope: 1},
+            {x:4860, y:324, w:76, slope: -1},
+            {x:5220, y:252, w:80, slope: 1},
+            {x:5480, y:246, w:250},
           ],
         },
       };
@@ -653,6 +864,37 @@ function GameInstance({ level, router }: { level: number; router: ReturnType<typ
                 this.tone(this.notes[7], now, interval * 0.25, 0.04, 'sine');
               if (s === 2)
                 this.noise(now, 0.06, 0.025);
+            } else if (this.rhythmStyle === 'patagonia') {
+              // Patagonia — cold pulse, distant wind, and slow glacier bells
+              const s = this.step % 8;
+              if (s === 0 || s === 4)
+                this.tone(this.notes[0] / 2, now, interval * 1.4, 0.07, 'sine');
+              if (s === 1 || s === 5)
+                this.tone(this.notes[this.melody[this.step % this.melody.length]], now, interval * 0.5, 0.08, 'triangle');
+              if (s === 3 || s === 7)
+                this.noise(now, 0.05, 0.07);
+              if (s === 6)
+                this.tone(this.notes[6], now, interval * 0.8, 0.035, 'sine');
+            } else if (this.rhythmStyle === 'uruguay') {
+              // Uruguay — candombe-inspired drumline with bright riverfront melody
+              const s = this.step % 8;
+              if (s === 0 || s === 3 || s === 6) {
+                this.noise(now, 0.18, 0.055);
+                this.tone(this.notes[0] / 2, now, interval * 0.9, 0.08, 'sine');
+              }
+              if (s === 1 || s === 4 || s === 7)
+                this.tone(this.notes[this.melody[this.step % this.melody.length]], now, interval * 0.45, 0.08, 'triangle');
+              if (s === 5)
+                this.tone(this.notes[4], now, interval * 0.55, 0.05, 'square');
+            } else if (this.rhythmStyle === 'paraguay') {
+              // Paraguay — dry Chaco pulse with harp-like high notes and dust hits
+              const s = this.step % 8;
+              if (s === 0 || s === 4)
+                this.tone(this.notes[0] / 2, now, interval * 1.6, 0.09, 'sine');
+              if (s === 2 || s === 5 || s === 7)
+                this.tone(this.notes[this.melody[this.step % this.melody.length]], now, interval * 0.5, 0.075, 'triangle');
+              if (s === 3 || s === 6)
+                this.noise(now, 0.1, 0.04);
             } else {
               this.tone(this.notes[this.melody[this.step % this.melody.length]], now, interval * 0.8);
               if (this.step % 4 === 0 || this.step % 4 === 2)
@@ -681,6 +923,7 @@ function GameInstance({ level, router }: { level: number; router: ReturnType<typ
         cfg!: LevelConfig;
         hero!: Phaser.Physics.Arcade.Sprite;
         platforms!: Phaser.Physics.Arcade.StaticGroup;
+        movingPlatforms!: Phaser.Physics.Arcade.Group;
         enemies!: Phaser.Physics.Arcade.Group;
         meteors!: Phaser.Physics.Arcade.Group;
         coins!: Phaser.Physics.Arcade.StaticGroup;
@@ -697,6 +940,10 @@ function GameInstance({ level, router }: { level: number; router: ReturnType<typ
         portalX = 0;
         portalY = 0;
         meteorTimer = 0;
+        windTimer = 0;
+        windActiveTimer = 0;
+        windDir = 1;
+        windBanner!: Phaser.GameObjects.Text;
 
         scoreText!: Phaser.GameObjects.Text;
         heartsText!: Phaser.GameObjects.Text;
@@ -710,6 +957,8 @@ function GameInstance({ level, router }: { level: number; router: ReturnType<typ
           createEnemyTexture(this, this.cfg.enemyKey, this.cfg.enemyColor);
           if (this.cfg.enemy2Key) createEnemyTexture(this, this.cfg.enemy2Key, this.cfg.enemy2Color ?? 0);
           if (this.cfg.hazardBehavior === 'atacama') createEnemyTexture(this, 'meteor_fragment', 0x7f1d1d);
+          if (this.cfg.hazardBehavior === 'uruguay') createEnemyTexture(this, 'rambla_seagull', 0xffffff);
+          if (this.cfg.hazardBehavior === 'paraguay') createEnemyTexture(this, 'chaco_spearman', 0x451a03);
           createPortalTexture(this);
 
           const pg = this.make.graphics({ x: 0, y: 0 });
@@ -741,6 +990,7 @@ function GameInstance({ level, router }: { level: number; router: ReturnType<typ
           this.score = 0; this.lives = 3;
           this.invincible = false; this.invincibleTimer = 0;
           this.ended = false; this.coyoteFrames = 0; this.wasOnGround = false; this.meteorTimer = 45;
+          this.windTimer = 90; this.windActiveTimer = 0; this.windDir = 1;
 
           this.cameras.main.setBounds(0, 0, worldW, H);
           this.physics.world.setBounds(0, 0, worldW, H + 200);
@@ -1053,17 +1303,152 @@ function GameInstance({ level, router }: { level: number; router: ReturnType<typ
               salt.lineBetween(x, this.groundY - 30, x + 48, this.groundY + 18);
               salt.lineBetween(x + 48, this.groundY + 18, x + 96, this.groundY - 30);
             }
+          } else if (cfg.backgroundStyle === 'patagonia') {
+            // Patagonia — glaciers, knife-edge peaks, wind, and ice plains
+            const aurora = this.add.graphics().setScrollFactor(0.04);
+            aurora.fillStyle(0x67e8f9, 0.08);
+            for (let i = 0; i < 9; i++)
+              aurora.fillEllipse(220 + i * 520, 105 + Math.sin(i * 1.8) * 26, 520, 62);
+
+            const peaks = this.add.graphics().setScrollFactor(0.18);
+            for (let i = 0; i < Math.ceil(worldW / 620); i++) {
+              const ox = i * 620;
+              peaks.fillStyle(0x0f172a, 0.94);
+              peaks.fillTriangle(ox + 15, this.groundY, ox + 180, 135, ox + 355, this.groundY);
+              peaks.fillTriangle(ox + 220, this.groundY, ox + 420, 105, ox + 620, this.groundY);
+              peaks.fillStyle(0xdbeafe, 0.88);
+              peaks.fillTriangle(ox + 146, 178, ox + 180, 135, ox + 215, 178);
+              peaks.fillTriangle(ox + 380, 162, ox + 420, 105, ox + 462, 162);
+              peaks.fillStyle(0x1e40af, 0.36);
+              peaks.fillTriangle(ox + 180, 135, ox + 355, this.groundY, ox + 245, this.groundY);
+            }
+
+            const glaciers = this.add.graphics().setScrollFactor(0.42);
+            glaciers.fillStyle(0xbfdbfe, 0.72);
+            for (let i = 0; i < Math.ceil(worldW / 420); i++) {
+              const x = i * 420;
+              glaciers.fillRect(x, this.groundY - 112, 310, 118);
+              glaciers.fillStyle(0xe0f2fe, 0.72);
+              glaciers.fillTriangle(x, this.groundY - 112, x + 110, this.groundY - 170, x + 220, this.groundY - 112);
+              glaciers.fillStyle(0x93c5fd, 0.5);
+              glaciers.fillRect(x + 24, this.groundY - 92, 18, 86);
+              glaciers.fillRect(x + 130, this.groundY - 104, 14, 96);
+              glaciers.fillStyle(0xbfdbfe, 0.72);
+            }
+
+            const ice = this.add.graphics().setScrollFactor(0.7);
+            ice.fillStyle(0xe0f2fe, 0.58); ice.fillRect(0, this.groundY - 28, worldW, 88);
+            ice.lineStyle(1, 0xffffff, 0.35);
+            for (let i = 0; i < Math.ceil(worldW / 90); i++) {
+              const x = i * 90;
+              ice.lineBetween(x, this.groundY - 12, x + 42, this.groundY + 4);
+              ice.lineBetween(x + 42, this.groundY + 4, x + 82, this.groundY - 18);
+            }
+          } else if (cfg.backgroundStyle === 'uruguay') {
+            // Uruguay — Montevideo rambla, river wind, stadium lights, and old city silhouettes
+            const river = this.add.graphics().setScrollFactor(0.18);
+            river.fillStyle(0x38bdf8, 0.28); river.fillRect(0, this.groundY - 86, worldW, 110);
+            river.lineStyle(2, 0xffffff, 0.18);
+            for (let i = 0; i < Math.ceil(worldW / 140); i++) {
+              const x = i * 140;
+              river.lineBetween(x, this.groundY - 58, x + 90, this.groundY - 50);
+              river.lineBetween(x + 30, this.groundY - 28, x + 130, this.groundY - 34);
+            }
+
+            const skyline = this.add.graphics().setScrollFactor(0.32);
+            for (let i = 0; i < Math.ceil(worldW / 360); i++) {
+              const ox = i * 360;
+              skyline.fillStyle(0x0f172a, 0.72);
+              skyline.fillRect(ox + 20, this.groundY - 170, 58, 110);
+              skyline.fillRect(ox + 92, this.groundY - 130, 84, 70);
+              skyline.fillRect(ox + 202, this.groundY - 155, 62, 95);
+              skyline.fillStyle(0xfef3c7, 0.6);
+              skyline.fillRect(ox + 38, this.groundY - 142, 8, 8);
+              skyline.fillRect(ox + 124, this.groundY - 108, 8, 8);
+              skyline.fillRect(ox + 222, this.groundY - 132, 8, 8);
+            }
+
+            const lights = this.add.graphics().setScrollFactor(0.48);
+            for (let i = 0; i < Math.ceil(worldW / 700); i++) {
+              const ox = 240 + i * 700;
+              lights.lineStyle(5, 0xe5e7eb, 0.75);
+              lights.lineBetween(ox, this.groundY - 60, ox, this.groundY - 210);
+              lights.fillStyle(0xfef08a, 0.45);
+              lights.fillEllipse(ox, this.groundY - 220, 160, 48);
+            }
+
+            const rambla = this.add.graphics().setScrollFactor(0.72);
+            rambla.fillStyle(0xe5e7eb, 0.42); rambla.fillRect(0, this.groundY - 18, worldW, 58);
+            rambla.lineStyle(3, 0xffffff, 0.38);
+            for (let i = 0; i < Math.ceil(worldW / 72); i++) {
+              const x = i * 72;
+              rambla.lineBetween(x, this.groundY - 18, x + 36, this.groundY - 48);
+              rambla.lineBetween(x + 36, this.groundY - 48, x + 72, this.groundY - 18);
+            }
+          } else if (cfg.backgroundStyle === 'paraguay') {
+            // Paraguay — Gran Chaco red earth, thorn trees, heat haze, and dust trails
+            const sun = this.add.graphics().setScrollFactor(0.05);
+            sun.fillStyle(0xfacc15, 0.65); sun.fillCircle(650, 98, 58);
+            sun.fillStyle(0xf97316, 0.18); sun.fillCircle(650, 98, 92);
+
+            const scrub = this.add.graphics().setScrollFactor(0.28);
+            for (let i = 0; i < Math.ceil(worldW / 430); i++) {
+              const ox = i * 430;
+              scrub.fillStyle(0x451a03, 0.78);
+              scrub.fillRect(ox + 80, this.groundY - 118, 12, 82);
+              scrub.fillRect(ox + 230, this.groundY - 92, 10, 58);
+              scrub.lineStyle(4, 0x713f12, 0.84);
+              scrub.lineBetween(ox + 86, this.groundY - 90, ox + 44, this.groundY - 130);
+              scrub.lineBetween(ox + 86, this.groundY - 82, ox + 132, this.groundY - 122);
+              scrub.lineBetween(ox + 235, this.groundY - 72, ox + 198, this.groundY - 104);
+              scrub.lineBetween(ox + 235, this.groundY - 66, ox + 278, this.groundY - 96);
+            }
+
+            const dust = this.add.graphics().setScrollFactor(0.52);
+            for (let i = 0; i < Math.ceil(worldW / 300); i++) {
+              const x = i * 300;
+              dust.fillStyle(0xfbbf24, 0.12 + (i % 3) * 0.04);
+              dust.fillEllipse(x + 130, this.groundY - 38, 260, 42);
+              dust.fillEllipse(x + 40, this.groundY - 82, 160, 28);
+            }
+
+            const earth = this.add.graphics().setScrollFactor(0.72);
+            earth.fillStyle(0x9a3412, 0.56); earth.fillRect(0, this.groundY - 22, worldW, 82);
+            earth.lineStyle(1, 0xfacc15, 0.22);
+            for (let i = 0; i < Math.ceil(worldW / 95); i++) {
+              const x = i * 95;
+              earth.lineBetween(x, this.groundY - 5, x + 48, this.groundY + 18);
+              earth.lineBetween(x + 48, this.groundY + 18, x + 92, this.groundY - 10);
+            }
           }
 
           // Ground
           this.platforms = this.physics.add.staticGroup();
+          this.movingPlatforms = this.physics.add.group({ allowGravity: false, immovable: true });
           for (let i = 0; i <= Math.ceil(worldW / 32); i++)
             this.platforms.create(i * 32 + 16, this.groundY + 16, "ground-tile").refreshBody();
 
           // Floating platforms
-          cfg.platforms.forEach(p => {
-            for (let i = 0; i < Math.ceil(p.w / 32); i++)
-              this.platforms.create(p.x + i * 32 + 16, p.y, "platform-tile").refreshBody();
+          cfg.platforms.forEach((p, platformIdx) => {
+            const tileCount = Math.ceil(p.w / 32);
+            for (let i = 0; i < tileCount; i++) {
+              const tileX = p.x + i * 32 + 16;
+              const slopeOffset = p.slope ? (i - (tileCount - 1) / 2) * p.slope * 8 : 0;
+              if (p.moving) {
+                const tile = this.movingPlatforms.create(tileX, p.y, "platform-tile") as Phaser.Physics.Arcade.Sprite;
+                const body = tile.body as Phaser.Physics.Arcade.Body;
+                body.setAllowGravity(false);
+                body.setImmovable(true);
+                tile.setData('homeX', tileX);
+                tile.setData('range', p.moving.range);
+                tile.setData('speed', p.moving.speed);
+                tile.setData('phase', platformIdx * 0.8);
+              } else {
+                const platform = this.platforms.create(tileX, p.y + slopeOffset, "platform-tile") as Phaser.Physics.Arcade.Sprite;
+                if (p.slope) platform.setAngle(p.slope * 8);
+                platform.refreshBody();
+              }
+            }
           });
 
           // Coins
@@ -1204,6 +1589,120 @@ function GameInstance({ level, router }: { level: number; router: ReturnType<typ
                 e.setData('spiked', false);
               }
             });
+          } else if (cfg.hazardBehavior === 'patagonia') {
+            // Ice spirits — airborne blockers drifting across difficult jump arcs
+            cfg.platforms.slice(2, -1).forEach((p, idx) => {
+              if (idx % 2 === 0) {
+                const e = this.enemies.create(p.x + p.w / 2, p.y - 74, cfg.enemyKey) as Phaser.Physics.Arcade.Sprite;
+                const body = e.body as Phaser.Physics.Arcade.Body;
+                body.setAllowGravity(false);
+                body.setCollideWorldBounds(true);
+                body.setSize(30, 42);
+                body.setOffset(9, 8);
+                e.setVelocityX(idx % 4 < 2 ? 55 : -55);
+                e.setData('state', 'drift');
+                e.setData('enemyType', 'ice_spirit');
+                e.setData('homeY', p.y - 74);
+                e.setData('phase', idx * 0.9);
+              }
+            });
+            // Gaucho riders — fast ground pressure that dash when the player closes in
+            const numRiders = 8;
+            for (let i = 0; i < numRiders; i++) {
+              const x = 620 + i * (cfg.worldWidth / numRiders);
+              const e = this.enemies.create(x, this.groundY - 26, cfg.enemy2Key!) as Phaser.Physics.Arcade.Sprite;
+              (e.body as Phaser.Physics.Arcade.Body).setCollideWorldBounds(true);
+              e.setVelocityX(i % 2 === 0 ? 75 : -75);
+              e.setData('state', 'patrol');
+              e.setData('enemyType', 'gaucho_rider');
+            }
+          } else if (cfg.hazardBehavior === 'uruguay') {
+            // Candombe drummers — platform guards that pulse outward in rhythm
+            cfg.platforms.slice(2, -1).forEach((p, idx) => {
+              if (idx % 2 === 0) {
+                const e = this.enemies.create(p.x + p.w / 2, p.y - 34, cfg.enemyKey) as Phaser.Physics.Arcade.Sprite;
+                const body = e.body as Phaser.Physics.Arcade.Body;
+                body.setCollideWorldBounds(true);
+                body.setSize(34, 46);
+                body.setOffset(7, 6);
+                e.setVelocityX(idx % 4 < 2 ? 70 : -70);
+                e.setBounceX(1);
+                e.setData('state', 'patrol');
+                e.setData('enemyType', 'candombe_drummer');
+                e.setData('pulseTimer', Phaser.Math.Between(45, 110));
+              }
+            });
+            // Football defenders — fast ground slides that punish low routes
+            const numDefenders = 9;
+            for (let i = 0; i < numDefenders; i++) {
+              const x = 560 + i * (cfg.worldWidth / numDefenders);
+              const e = this.enemies.create(x, this.groundY - 24, cfg.enemy2Key!) as Phaser.Physics.Arcade.Sprite;
+              (e.body as Phaser.Physics.Arcade.Body).setCollideWorldBounds(true);
+              e.setVelocityX(i % 2 === 0 ? 115 : -115);
+              e.setData('state', 'patrol');
+              e.setData('enemyType', 'football_defender');
+              e.setData('slideTimer', Phaser.Math.Between(55, 140));
+            }
+            // Rambla seagulls — flying cross-traffic that makes high routes unsafe
+            const numSeagulls = 7;
+            for (let i = 0; i < numSeagulls; i++) {
+              const x = 640 + i * (cfg.worldWidth / numSeagulls);
+              const e = this.enemies.create(x, 150 + (i % 3) * 38, 'rambla_seagull') as Phaser.Physics.Arcade.Sprite;
+              const body = e.body as Phaser.Physics.Arcade.Body;
+              body.setAllowGravity(false);
+              body.setCollideWorldBounds(true);
+              body.setSize(36, 22);
+              body.setOffset(6, 6);
+              e.setVelocityX(i % 2 === 0 ? -135 : 135);
+              e.setData('state', 'swoop');
+              e.setData('enemyType', 'rambla_seagull');
+              e.setData('homeY', e.y);
+              e.setData('phase', i * 0.65);
+            }
+          } else if (cfg.hazardBehavior === 'paraguay') {
+            // Armadillos — rolling Chaco enemies that accelerate when the player commits to a platform
+            cfg.platforms.slice(1, -1).forEach((p, idx) => {
+              if (idx % 2 === 0) {
+                const e = this.enemies.create(p.x + p.w / 2, p.y - 27, cfg.enemyKey) as Phaser.Physics.Arcade.Sprite;
+                const body = e.body as Phaser.Physics.Arcade.Body;
+                body.setCollideWorldBounds(true);
+                body.setCircle(19, 5, 5);
+                e.setVelocityX(idx % 4 < 2 ? 115 : -115);
+                e.setBounceX(1);
+                e.setData('state', 'roll');
+                e.setData('enemyType', 'armadillo_roller');
+              }
+            });
+            // Dust devils — floating wind hazards weaving through jump space
+            cfg.platforms.slice(2, -1).forEach((p, idx) => {
+              if (idx % 3 === 1) {
+                const e = this.enemies.create(p.x + p.w / 2, p.y - 86, cfg.enemy2Key!) as Phaser.Physics.Arcade.Sprite;
+                const body = e.body as Phaser.Physics.Arcade.Body;
+                body.setAllowGravity(false);
+                body.setCollideWorldBounds(true);
+                body.setSize(30, 44);
+                body.setOffset(9, 5);
+                e.setVelocityX(idx % 2 === 0 ? 70 : -70);
+                e.setData('state', 'swirl');
+                e.setData('enemyType', 'dust_devil');
+                e.setData('homeY', p.y - 86);
+                e.setData('phase', idx * 0.7);
+              }
+            });
+            // Chaco spearmen — wait on low routes, then thrust forward when the player slows down
+            const numSpearmen = 7;
+            for (let i = 0; i < numSpearmen; i++) {
+              const x = 720 + i * (cfg.worldWidth / numSpearmen);
+              const e = this.enemies.create(x, this.groundY - 25, 'chaco_spearman') as Phaser.Physics.Arcade.Sprite;
+              const body = e.body as Phaser.Physics.Arcade.Body;
+              body.setCollideWorldBounds(true);
+              body.setSize(38, 44);
+              body.setOffset(6, 6);
+              e.setVelocityX(i % 2 === 0 ? 35 : -35);
+              e.setData('state', 'watch');
+              e.setData('enemyType', 'chaco_spearman');
+              e.setData('thrustTimer', Phaser.Math.Between(80, 150));
+            }
           }
 
           // Portal at end
@@ -1228,7 +1727,9 @@ function GameInstance({ level, router }: { level: number; router: ReturnType<typ
 
           // Colliders
           this.physics.add.collider(this.hero, this.platforms);
+          this.physics.add.collider(this.hero, this.movingPlatforms);
           this.physics.add.collider(this.enemies, this.platforms);
+          this.physics.add.collider(this.enemies, this.movingPlatforms);
           this.physics.add.collider(this.meteors, this.platforms, (meteorObj) => {
             (meteorObj as Phaser.GameObjects.GameObject).destroy();
           });
@@ -1282,6 +1783,10 @@ function GameInstance({ level, router }: { level: number; router: ReturnType<typ
             stroke: "#000", strokeThickness: 3,
           }).setScrollFactor(0).setDepth(5);
 
+          this.windBanner = this.add.text(W / 2, 72, "", {
+            fontSize: "14px", color: "#e0f2fe", fontStyle: "bold",
+            stroke: "#082f49", strokeThickness: 4,
+          }).setOrigin(0.5).setScrollFactor(0).setDepth(5).setAlpha(0);
 
           // Music + intro card
           this.audio = new AudioEngine(cfg.musicNotes, cfg.musicTempo, cfg.musicMelody, cfg.rhythmStyle);
@@ -1466,6 +1971,16 @@ function GameInstance({ level, router }: { level: number; router: ReturnType<typ
             if (this.invincibleTimer <= 0) { this.invincible = false; this.hero.setAlpha(1); }
           }
 
+          (this.movingPlatforms.getChildren() as Phaser.Physics.Arcade.Sprite[]).forEach(tile => {
+            const homeX = tile.getData('homeX') as number;
+            const range = tile.getData('range') as number;
+            const speed = tile.getData('speed') as number;
+            const phase = tile.getData('phase') as number;
+            const nextX = homeX + Math.sin(this.time.now * speed + phase) * range;
+            tile.setVelocityX((nextX - tile.x) * 60);
+            tile.setX(nextX);
+          });
+
           // Movement — read from React window listeners (canvas focus-independent)
           const left  = keysHeld.current.has('ArrowLeft')  || keysHeld.current.has('KeyA');
           const right = keysHeld.current.has('ArrowRight') || keysHeld.current.has('KeyD');
@@ -1474,9 +1989,30 @@ function GameInstance({ level, router }: { level: number; router: ReturnType<typ
                         keysJustPressed.current.has('KeyW');
           keysJustPressed.current.clear();
 
-          if (left)       { this.hero.setVelocityX(-200); this.hero.setFlipX(true); }
+          if (this.cfg.hazardBehavior === 'patagonia') {
+            if (left)       { this.hero.setVelocityX(-190); this.hero.setFlipX(true); }
+            else if (right) { this.hero.setVelocityX(190);  this.hero.setFlipX(false); }
+            else {
+              const vx = Math.abs(body.velocity.x) < 8 ? 0 : body.velocity.x * 0.94;
+              this.hero.setVelocityX(vx);
+            }
+          } else if (left)       { this.hero.setVelocityX(-200); this.hero.setFlipX(true); }
           else if (right) { this.hero.setVelocityX(200);  this.hero.setFlipX(false); }
           else            { this.hero.setVelocityX(0); }
+
+          if (this.cfg.hazardBehavior === 'paraguay' && onGround) {
+            const footY = this.hero.y + body.height / 2;
+            const slope = this.cfg.platforms.find(p =>
+              p.slope &&
+              this.hero.x > p.x - 10 &&
+              this.hero.x < p.x + p.w + 10 &&
+              Math.abs(footY - p.y) < 34
+            );
+            if (slope?.slope && Math.abs(body.velocity.x) < 175) {
+              const slideVx = Phaser.Math.Clamp(body.velocity.x + slope.slope * 16, -220, 220);
+              this.hero.setVelocityX(slideVx);
+            }
+          }
 
           if (jump && (onGround || this.coyoteFrames > 0)) {
             this.hero.setVelocityY(this.cfg.hazardBehavior === 'atacama' ? -430 : -480);
@@ -1493,6 +2029,41 @@ function GameInstance({ level, router }: { level: number; router: ReturnType<typ
             (this.meteors.getChildren() as Phaser.Physics.Arcade.Sprite[]).forEach(m => {
               if (m.y > this.groundY + 70 || m.x < this.cameras.main.scrollX - 120) m.destroy();
             });
+          } else if (this.cfg.hazardBehavior === 'patagonia') {
+            if (this.windActiveTimer > 0) {
+              this.windActiveTimer--;
+              if (!onGround) {
+                const nextVx = Phaser.Math.Clamp(body.velocity.x + this.windDir * 12, -310, 310);
+                this.hero.setVelocityX(nextVx);
+              }
+              this.windBanner.setText(this.windDir > 0 ? "WIND  >>>" : "<<<  WIND").setAlpha(1);
+            } else {
+              this.windTimer--;
+              this.windBanner.setAlpha(Math.max(0, this.windBanner.alpha - 0.05));
+              if (this.windTimer <= 0) {
+                this.windDir = Math.random() > 0.5 ? 1 : -1;
+                this.windActiveTimer = 125;
+                this.windTimer = Phaser.Math.Between(150, 230);
+                this.cameras.main.shake(90, 0.004);
+              }
+            }
+          } else if (this.cfg.hazardBehavior === 'uruguay') {
+            if (this.windActiveTimer > 0) {
+              this.windActiveTimer--;
+              const push = onGround ? 4 : 9;
+              const nextVx = Phaser.Math.Clamp(body.velocity.x + this.windDir * push, -285, 285);
+              this.hero.setVelocityX(nextVx);
+              this.windBanner.setText(this.windDir > 0 ? "RIVER WIND  >>>" : "<<<  RIVER WIND").setAlpha(1);
+            } else {
+              this.windTimer--;
+              this.windBanner.setAlpha(Math.max(0, this.windBanner.alpha - 0.04));
+              if (this.windTimer <= 0) {
+                this.windDir = Math.random() > 0.5 ? 1 : -1;
+                this.windActiveTimer = 80;
+                this.windTimer = Phaser.Math.Between(120, 190);
+                this.cameras.main.shake(70, 0.0025);
+              }
+            }
           }
 
           // Enemy behavior
@@ -1761,6 +2332,133 @@ function GameInstance({ level, router }: { level: number; router: ReturnType<typ
                     e.setData('spiked', false);
                     e.setData('spikeTimer', Phaser.Math.Between(80, 145));
                     e.setScale(1);
+                  }
+                }
+              }
+            } else if (this.cfg.hazardBehavior === 'patagonia') {
+              const type = e.getData('enemyType') as string;
+              if (type === 'ice_spirit') {
+                // ── Ice spirit: slow horizontal drift with vertical wave motion ──
+                if (eb.blocked.left || e.x < 80) e.setVelocityX(55);
+                else if (eb.blocked.right || e.x > this.cfg.worldWidth - 80) e.setVelocityX(-55);
+                const homeY = e.getData('homeY') as number;
+                const phase = e.getData('phase') as number;
+                e.setY(homeY + Math.sin(this.time.now / 520 + phase) * 34);
+                e.setFlipX(eb.velocity.x < 0);
+                e.setAlpha(0.75 + Math.sin(this.time.now / 260 + phase) * 0.18);
+              } else if (type === 'gaucho_rider') {
+                // ── Gaucho rider: patrols fast, then lasso-dashes when close ──
+                if (state === 'patrol') {
+                  if (eb.blocked.left)  e.setVelocityX(75);
+                  if (eb.blocked.right) e.setVelocityX(-75);
+                  e.setFlipX(eb.velocity.x < 0);
+                  if (Math.abs(e.x - this.hero.x) < 260 && Math.abs(e.y - this.hero.y) < 70) {
+                    e.setData('state', 'dash');
+                    e.setData('dashTimer', 90);
+                    e.setVelocityX(this.hero.x > e.x ? 360 : -360);
+                    e.setScale(1.08);
+                  }
+                } else if (state === 'dash') {
+                  e.setFlipX(eb.velocity.x < 0);
+                  const t = (e.getData('dashTimer') as number) - 1;
+                  e.setData('dashTimer', t);
+                  if (t <= 0 || eb.blocked.left || eb.blocked.right) {
+                    e.setScale(1);
+                    e.setData('state', 'patrol');
+                    e.setVelocityX(eb.velocity.x > 0 ? -75 : 75);
+                  }
+                }
+              }
+            } else if (this.cfg.hazardBehavior === 'uruguay') {
+              const type = e.getData('enemyType') as string;
+              if (type === 'candombe_drummer') {
+                if (eb.blocked.left) e.setVelocityX(70);
+                if (eb.blocked.right) e.setVelocityX(-70);
+                e.setFlipX(eb.velocity.x < 0);
+                const t = (e.getData('pulseTimer') as number) - 1;
+                e.setData('pulseTimer', t);
+                if (t <= 0) {
+                  e.setData('pulseTimer', Phaser.Math.Between(70, 125));
+                  e.setScale(1.18);
+                  this.tweens.add({ targets: e, scaleX: 1, scaleY: 1, duration: 220, ease: 'Quad.easeOut' });
+                  if (Math.abs(e.x - this.hero.x) < 190 && Math.abs(e.y - this.hero.y) < 85) {
+                    this.hero.setVelocityX(this.hero.x > e.x ? 260 : -260);
+                    if (!this.invincible) this.cameras.main.shake(80, 0.003);
+                  }
+                }
+              } else if (type === 'football_defender') {
+                const t = (e.getData('slideTimer') as number) - 1;
+                e.setData('slideTimer', t);
+                if (state === 'patrol') {
+                  if (eb.blocked.left) e.setVelocityX(115);
+                  if (eb.blocked.right) e.setVelocityX(-115);
+                  if (t <= 0 && Math.abs(e.x - this.hero.x) < 300) {
+                    e.setData('state', 'slide');
+                    e.setData('slideTimer', 52);
+                    e.setVelocityX(this.hero.x > e.x ? 330 : -330);
+                    e.setScale(1.08, 0.86);
+                  }
+                } else if (state === 'slide') {
+                  if (t <= 0 || eb.blocked.left || eb.blocked.right) {
+                    e.setScale(1);
+                    e.setData('state', 'patrol');
+                    e.setData('slideTimer', Phaser.Math.Between(85, 150));
+                    e.setVelocityX(eb.velocity.x > 0 ? -115 : 115);
+                  }
+                }
+                e.setFlipX(eb.velocity.x < 0);
+              } else if (type === 'rambla_seagull') {
+                if (eb.blocked.left || e.x < 80) e.setVelocityX(135);
+                else if (eb.blocked.right || e.x > this.cfg.worldWidth - 80) e.setVelocityX(-135);
+                const homeY = e.getData('homeY') as number;
+                const phase = e.getData('phase') as number;
+                const close = Math.abs(e.x - this.hero.x) < 210;
+                const swoop = close ? 46 : 0;
+                e.setY(homeY + Math.sin(this.time.now / 360 + phase) * 24 + swoop);
+                e.setFlipX(eb.velocity.x < 0);
+              }
+            } else if (this.cfg.hazardBehavior === 'paraguay') {
+              const type = e.getData('enemyType') as string;
+              if (type === 'armadillo_roller') {
+                const dx = this.hero.x - e.x;
+                const dy = Math.abs(this.hero.y - e.y);
+                const speed = Math.abs(dx) < 280 && dy < 90 ? 210 : 115;
+                if (eb.blocked.left) e.setVelocityX(speed);
+                else if (eb.blocked.right) e.setVelocityX(-speed);
+                else if (Math.abs(dx) < 280 && dy < 90) e.setVelocityX(dx > 0 ? speed : -speed);
+                e.angle += eb.velocity.x > 0 ? 9 : -9;
+              } else if (type === 'dust_devil') {
+                if (eb.blocked.left || e.x < 80) e.setVelocityX(70);
+                else if (eb.blocked.right || e.x > this.cfg.worldWidth - 80) e.setVelocityX(-70);
+                const homeY = e.getData('homeY') as number;
+                const phase = e.getData('phase') as number;
+                e.setY(homeY + Math.sin(this.time.now / 430 + phase) * 42);
+                e.angle += 5;
+                e.setAlpha(0.72 + Math.sin(this.time.now / 190 + phase) * 0.18);
+              } else if (type === 'chaco_spearman') {
+                const dx = this.hero.x - e.x;
+                const dy = Math.abs(this.hero.y - e.y);
+                if (state === 'watch') {
+                  if (eb.blocked.left) e.setVelocityX(35);
+                  if (eb.blocked.right) e.setVelocityX(-35);
+                  const t = (e.getData('thrustTimer') as number) - 1;
+                  e.setData('thrustTimer', t);
+                  e.setFlipX(dx < 0);
+                  if (t <= 0 && Math.abs(dx) < 250 && dy < 85) {
+                    e.setData('state', 'thrust');
+                    e.setData('thrustTimer', 38);
+                    e.setVelocityX(dx > 0 ? 285 : -285);
+                    e.setScale(1.16, 1);
+                  }
+                } else if (state === 'thrust') {
+                  const t = (e.getData('thrustTimer') as number) - 1;
+                  e.setData('thrustTimer', t);
+                  e.setFlipX(eb.velocity.x < 0);
+                  if (t <= 0 || eb.blocked.left || eb.blocked.right) {
+                    e.setScale(1);
+                    e.setData('state', 'watch');
+                    e.setData('thrustTimer', Phaser.Math.Between(90, 160));
+                    e.setVelocityX(eb.velocity.x > 0 ? -35 : 35);
                   }
                 }
               }

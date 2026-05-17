@@ -10,10 +10,9 @@ const LEVELS = [
   { id: 4,  name: "Salto Ángel",               region: "Venezuela",                 x: 248, y: 295, color: "#38bdf8" },
   { id: 5,  name: "Río de Janeiro",            region: "Brazil",                    x: 272, y: 378, color: "#facc15" },
   { id: 6,  name: "Valle de la Luna",          region: "Atacama, Chile",            x: 208, y: 378, color: "#fb923c" },
-  { id: 7,  name: "El Caribe",                 region: "Caribbean Coast",           x: 246, y: 272, color: "#f472b6" },
-  { id: 8,  name: "Buenos Aires",              region: "La Plata, Argentina",       x: 240, y: 424, color: "#a78bfa" },
-  { id: 9,  name: "El Orinoco",                region: "Orinoco Delta, Venezuela",  x: 254, y: 280, color: "#2dd4bf" },
-  { id: 10, name: "Patagonia",                 region: "Southern Andes",            x: 206, y: 492, color: "#93c5fd" },
+  { id: 7,  name: "Patagonia",                 region: "Southern Andes",            x: 206, y: 492, color: "#93c5fd" },
+  { id: 8,  name: "Montevideo",                region: "Uruguay",                   x: 234, y: 438, color: "#38bdf8" },
+  { id: 9,  name: "Gran Chaco",                region: "Paraguay",                  x: 232, y: 390, color: "#f97316" },
 ];
 
 function computeUnlocked(id: number, completed: number[]): boolean {
@@ -23,6 +22,9 @@ function computeUnlocked(id: number, completed: number[]): boolean {
   if (id === 4) return completed.includes(1) && completed.includes(2) && completed.includes(3);
   if (id === 5) return completed.includes(4);
   if (id === 6) return completed.includes(5);
+  if (id === 7) return completed.includes(6);
+  if (id === 8) return completed.includes(7);
+  if (id === 9) return completed.includes(8);
   return false;
 }
 
@@ -209,13 +211,13 @@ export default function LandingPage() {
               EL AVENTURERO
             </div>
             <div className="hidden lg:block mt-1 lg:mt-3 text-[11px] lg:text-sm" style={{ color: "#a0b4c8", lineHeight: 1.6 }}>
-              Jump, run, and groove through 10 iconic Latin American landscapes — each with its own rhythm, culture, and challenge.
+              Jump, run, and groove through 9 iconic Latin American landscapes — each with its own rhythm, culture, and challenge.
             </div>
           </div>
 
           {/* Level previews */}
           <div className="flex flex-col gap-1">
-            {levels.filter(l => l.id <= 6).map(level => (
+            {levels.map(level => (
               level.unlocked ? (
                 <div key={level.id}
                   onClick={() => router.push(`/game?level=${level.id}`)}
@@ -257,13 +259,6 @@ export default function LandingPage() {
                 </div>
               )
             ))}
-            <div className="flex items-center gap-2 rounded-xl px-3"
-              style={{ background: "#0d1a2a", border: "1px solid #1a2a3a",
-                paddingTop: 'clamp(5px, 1vh, 14px)',
-                paddingBottom: 'clamp(5px, 1vh, 14px)' }}>
-              <div className="text-xs lg:text-lg">🔒</div>
-              <div className="text-[10px] lg:text-xs" style={{ color: "#4a6a8a" }}>4 more regions coming soon</div>
-            </div>
           </div>
 
           {/* CTA */}
@@ -286,7 +281,7 @@ export default function LandingPage() {
       </div>
 
       {/* Footer */}
-      <div className="absolute bottom-3 left-4 lg:left-0 lg:right-0 text-left lg:text-center text-xs z-20" style={{ color: "#4a6a8a" }}>
+      <div className="absolute bottom-3 left-4 text-left text-xs z-20" style={{ color: "#4a6a8a" }}>
         Built by{" "}
         <a href="https://helmutfritz.fyi" target="_blank" rel="noopener noreferrer"
           className="transition-colors" style={{ color: "#6a9abf" }}>
